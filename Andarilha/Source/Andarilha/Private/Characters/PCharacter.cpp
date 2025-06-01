@@ -20,6 +20,7 @@ APCharacter::APCharacter()
 	SpringArm->SetupAttachment(Capsule);
 	SpringArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
 	SpringArm->SetRelativeLocation(FVector(0.f, 0.f, 65.f));
+	SpringArm->bUsePawnControlRotation = true;
 	SpringArm->TargetArmLength = 250.0f;
 	SpringArm->bEnableCameraLag = true;
 	SpringArm->CameraLagSpeed = 25.0f;
@@ -29,6 +30,8 @@ APCharacter::APCharacter()
 	Camera->bUsePawnControlRotation = false;
 
 	MovementComponent = this->GetCharacterMovement();
+	MovementComponent->bOrientRotationToMovement = true;
+	MovementComponent->JumpZVelocity = 600.0f;
 	MovementComponent->MaxWalkSpeed = 300.0f;
 	MovementComponent->MaxWalkSpeedCrouched = 200.0f;
 
@@ -188,8 +191,6 @@ void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		Input->BindAction(TurnAction, ETriggerEvent::Triggered, this, &APCharacter::Turn);
 
 		Input->BindAction(JumpAction, ETriggerEvent::Started, this, &APCharacter::Jump);
-		Input->BindAction(JumpAction, ETriggerEvent::Completed, this, &APCharacter::StopJumping);
-		Input->BindAction(JumpAction, ETriggerEvent::Canceled, this, &APCharacter::StopJumping);
 		Input->BindAction(InteractAction, ETriggerEvent::Started, this, &APCharacter::Interact);
 		Input->BindAction(LockTurnAction, ETriggerEvent::Started, this, &APCharacter::LockTurn);
 		Input->BindAction(LockTurnAction, ETriggerEvent::Completed, this, &APCharacter::LockTurn);
