@@ -100,7 +100,6 @@ void APCharacter::Turn(const FInputActionValue& Value)
 
 void APCharacter::Interact(const FInputActionValue& Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Oi?"));
 	if (isAlive)
 	{
 
@@ -110,8 +109,20 @@ void APCharacter::Interact(const FInputActionValue& Value)
 		for (AActor* overlappedActor : overlappedActors)
 		{
 			AInteractableBase* Interactable = Cast<AInteractableBase>(overlappedActor);
-			if (Interactable->ActorHasTag(FName("TriggerableBase"))) {
+			if ( Interactable->ActorHasTag(FName("TriggerableBase")) )
+			{
 				UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
+				Interactable->Interact();
+			}
+			else if (Interactable->ActorHasTag(FName("CollectableBase")) )
+			{
+				UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
+
+				//int32 MaxItemsOnInventory = 6;
+				// if InventoryItems.Lenght < MaxItemsOnInventory
+					// InventoryItems.append( Interactable->StructData  )
+					// Load Inventory Widget
+					// Interactable->Interact(); DESTROY ACTOR AFTER COLECTED
 				Interactable->Interact();
 			}
 		}

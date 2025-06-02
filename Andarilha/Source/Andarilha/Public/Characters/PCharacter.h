@@ -4,7 +4,7 @@
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "../Interactables/InteractableBase.h"
+#include "Interactables/InteractableBase.h"
 #include "PCharacter.generated.h"
 
 class UCapsuleComponent;

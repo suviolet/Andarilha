@@ -19,7 +19,7 @@ AMovableActorBase::AMovableActorBase()
 	bIsMovingForward = true;
 
 	Curve = CreateDefaultSubobject<UCurveFloat>(TEXT("Curve"));
-	//Curve->FloatCurve.Reset();
+	Curve->FloatCurve.Reset();
 	Curve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
 	Curve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
 
@@ -46,14 +46,14 @@ void AMovableActorBase::Tick(float DeltaTime)
 
 void AMovableActorBase::MoveToPoint(float Alpha)
 {
+	FRotator ArrowRotation = Arrow->GetRelativeRotation();
 	FTransform start = Spline->GetTransformAtSplinePoint(CurrenctLocation.InputKey, ESplineCoordinateSpace::World);
 	FTransform end = Spline->GetTransformAtSplinePoint(NextLocation.InputKey, ESplineCoordinateSpace::World);
 
 	FVector newLocation = UKismetMathLibrary::VLerp(start.GetLocation(), end.GetLocation(), Alpha);
-	FRotator newRotation = UKismetMathLibrary::RLerp(start.Rotator(), end.Rotator(), Alpha, true);
+	FRotator newRotation = UKismetMathLibrary::RLerp(start.Rotator() + ArrowRotation, end.Rotator() + ArrowRotation, Alpha, true);
 
-	//this->RootComponent->SetWorldLocationAndRotation(newLocation, newRotation);
-	this->RootComponent->SetWorldLocation(newLocation);
+	this->RootComponent->SetWorldLocationAndRotation(newLocation, newRotation);
 }
 
 void AMovableActorBase::OnMovableTriggered()
