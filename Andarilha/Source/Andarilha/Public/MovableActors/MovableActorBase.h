@@ -31,6 +31,7 @@ public:
 	UFUNCTION()
 	void OnMovePreviousTriggered();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UArrowComponent* Arrow;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

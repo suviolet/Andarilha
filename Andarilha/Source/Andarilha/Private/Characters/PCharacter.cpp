@@ -39,7 +39,7 @@ APCharacter::APCharacter()
 	traceObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldDynamic));
 
 	ignoreActors.Add(GetOwner());
-	//seekClass = AInteractableBase::StaticClass();
+	seekClass = AInteractableBase::StaticClass();
 
 	sphereOverlapRadius = 75.0f;
 	isAlive = true;
@@ -100,20 +100,21 @@ void APCharacter::Turn(const FInputActionValue& Value)
 
 void APCharacter::Interact(const FInputActionValue& Value)
 {
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Oi?"));
 	if (isAlive)
 	{
 
-		//UKismetSystemLibrary::SphereOverlapActors(GetWorld(), GetActorLocation(), sphereOverlapRadius, traceObjectTypes, seekClass, ignoreActors, overlappedActors);
-		//DrawDebugSphere(GetWorld(), GetActorLocation(), sphereOverlapRadius, 12, FColor::Red, false, 1.0f);
+		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), GetActorLocation(), sphereOverlapRadius, traceObjectTypes, seekClass, ignoreActors, overlappedActors);
+		DrawDebugSphere(GetWorld(), GetActorLocation(), sphereOverlapRadius, 12, FColor::Red, false, 1.0f);
 
-		//for (AActor* overlappedActor : overlappedActors)
-		//{
-		//	//AInteractableBase* Interactable = Cast<AInteractableBase>(overlappedActor);
-		//	//if (Interactable->ActorHasTag(FName("TriggerableBase"))) {
-		//	//	UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
-		//	//	Interactable->Interact();
-		//	//}
-		//}
+		for (AActor* overlappedActor : overlappedActors)
+		{
+			AInteractableBase* Interactable = Cast<AInteractableBase>(overlappedActor);
+			if (Interactable->ActorHasTag(FName("TriggerableBase"))) {
+				UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
+				Interactable->Interact();
+			}
+		}
 	}
 }
 

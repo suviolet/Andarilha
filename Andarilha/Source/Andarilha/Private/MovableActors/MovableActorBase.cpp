@@ -19,7 +19,7 @@ AMovableActorBase::AMovableActorBase()
 	bIsMovingForward = true;
 
 	Curve = CreateDefaultSubobject<UCurveFloat>(TEXT("Curve"));
-	Curve->FloatCurve.Reset();
+	//Curve->FloatCurve.Reset();
 	Curve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
 	Curve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
 
@@ -52,7 +52,8 @@ void AMovableActorBase::MoveToPoint(float Alpha)
 	FVector newLocation = UKismetMathLibrary::VLerp(start.GetLocation(), end.GetLocation(), Alpha);
 	FRotator newRotation = UKismetMathLibrary::RLerp(start.Rotator(), end.Rotator(), Alpha, true);
 
-	Mesh->SetWorldLocationAndRotation(newLocation, newRotation);
+	//this->RootComponent->SetWorldLocationAndRotation(newLocation, newRotation);
+	this->RootComponent->SetWorldLocation(newLocation);
 }
 
 void AMovableActorBase::OnMovableTriggered()
