@@ -1,0 +1,145 @@
+
+												------------
+												TO DO - JUNE
+												------------
+
+
+- Study Climbing System and Evaluate its risks (Thurday 12th)
+--> Same height for platforms
+--> camera relative movement based on Mesh- up, right, foward vectors
+--> 2D math 
+
+!!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
+					     					 (Friday 13th)
+
+- Inventory (Friday 13th)
+	-- Navigation 
+	-- Use
+	-- Drop
+
+
+-----------------------------------------------------------------
+- GDD 
++ 
+- Level Design Act1 - Level 1 - City Hall + Train Station  ("level hub")
+				      Level 2 - Office 1
+
+-----------------------------------------------------------------
+
+												--------------
+												---- JUICY ---
+												--------------
+
+- Fix Jump + Jump Animation (PlayerMontage?) (Saturday 14th)
+
+- SFX (Saturday 14th)
+  -- Andarilha Footsteps
+  -- Andarilha Land
+  -- Elevator Ambience Song
+  -- Elevator Moving Sound
+  -- Train Moving Sound
+  -- Train/Elevator Doors Opening
+  -- Train/Elevator Doors Closing
+  -- GuardBot Chasing
+  -- GuardBot Shooting Laser
+- Importing and executing SFXs on respective owners and moments (Saturday/Sunday 14th/15th)
+
+- New Jump (run/sprint whatever jump) (Sunday/Monday 15th/16th)
+
+!!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
+					(Sunday/Monday 15th/16th)
+
+- Triggers by item:
+	-- LockClass (Monday 16th)
+		--- BP_PCLock
+		--- BP_LaptopLock
+		--- BP_KeyLock
+		--- BP_KeyCardLock 
+
+
+---- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Monday 16th
+
+- Meshes (Monday 16th - Wednesday 18th)
+	-- GuardBot
+	-- Eye
+	-- Train Door
+	-- Elevator Door
+	-- Receptionist
+	*- Red Eye - Double Shot of Espresso in a 16 Oz dripped coffee served with an eye.
+	-- Safer
+	-- PopCola
+	*- Water Bottle
+	-- TV
+	-- Monitor
+	*- PenDrive
+	*- Chave
+	*- Apple
+	-- Spikes
+	-- CCTV Cameras
+	-- Propagandas
+		--- Wall Banner
+		--- BillBoard
+		--- Screens/Monitors/TV/LapTops
+
+- OpenDoorEvent
+	-- Train
+	-- Elevator
+	-- Safer
+
+- Enemy Patrolling/Chasing/Attacking (Wednesday 18th - Friday 20th)
+
+---- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Saturday 21st
+
+- Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
+
+- Lights Kill Player
+
+- Floor Falls Off
+
+- Health System
+
+- Stamina System
+
+- Game Over
+
+- Quests
+	-- Main
+	-- Side
+
+---- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Thursday 26th
+
+
+					 					--------------
+				   					---- JUICY ---
+					 					--------------
+
+
+-----------------------------------------------------------------
+
+
+- Make Presentation Slides Pitch 25th June
+
+- Presentation Pitch 30th June
+
+
+-----------------------------------------------------------------
+		
+										---- BACKLOG ---
+
+- Fix Spline Mesh Generation
+
+- Level Streaming / Orchestration
+
+- Checkpoint System
+
+- Save / Load Game
+
+- Eye Companion
+
+- Coin System
+
+- Main Menu
+
+- PinPad
+
+
