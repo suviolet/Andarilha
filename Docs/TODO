@@ -4,12 +4,17 @@
 												------------
 
 
-- Study Climbing System and Evaluate its risks (Thurday 12th)
+- Study Climbing System and Evaluate its risks (Thurday 12th) - 
 --> Same height for platforms
 --> camera relative movement based on Mesh- up, right, foward vectors
 --> 2D math 
 
+-- Gonna follow yt tutorial 1, 5 , 7 , 8
+
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
+
 					     					 (Friday 13th)
 
 - Inventory (Friday 13th)
@@ -33,15 +38,15 @@
 - Fix Jump + Jump Animation (PlayerMontage?) (Saturday 14th)
 
 - SFX (Saturday 14th)
-  -- Andarilha Footsteps
-  -- Andarilha Land
-  -- Elevator Ambience Song
-  -- Elevator Moving Sound
-  -- Train Moving Sound
-  -- Train/Elevator Doors Opening
-  -- Train/Elevator Doors Closing
-  -- GuardBot Chasing
-  -- GuardBot Shooting Laser
+  *-- Andarilha Footsteps
+  *-- Andarilha Land
+  *-- Elevator Ambience Song
+  *-- Elevator Moving Sound
+  *-- Train Moving Sound
+  -- *Train/*Elevator Doors Opening
+  -- *Train/*Elevator Doors Closing
+  *-- GuardBot Chasing
+  *-- GuardBot Shooting Laser
 - Importing and executing SFXs on respective owners and moments (Saturday/Sunday 14th/15th)
 
 - New Jump (run/sprint whatever jump) (Sunday/Monday 15th/16th)
