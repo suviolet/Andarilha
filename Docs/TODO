@@ -55,7 +55,7 @@
 					(Sunday/Monday 15th/16th)
 
 - Triggers by item:
-	-- LockClass (Monday 16th)
+	*- LockClass (Monday 16th)
 		--- BP_PCLock
 		--- BP_LaptopLock
 		--- BP_KeyLock
@@ -65,22 +65,22 @@
 ---- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Monday 16th
 
 - Meshes (Monday 16th - Wednesday 18th)
-	-- GuardBot
+	*- GuardBot
 	-- Eye
 	-- Train Door
 	-- Elevator Door
 	-- Receptionist
 	*- Red Eye - Double Shot of Espresso in a 16 Oz dripped coffee served with an eye.
 	-- Safer
-	-- PopCola
-	*- Water Bottle
+	** PopCola
+	** Water Bottle
 	-- TV
-	-- Monitor
-	*- PenDrive
-	*- Chave
-	*- Apple
-	-- Spikes
-	-- CCTV Cameras
+	*- Monitor
+	** PenDrive
+	** Chave
+	** Apple
+	*- Spikes
+	** CCTV Cameras
 	-- Propagandas
 		--- Wall Banner
 		--- BillBoard
@@ -97,11 +97,11 @@
 
 - Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
 
-- Lights Kill Player
+- Lights Kill Player (missing on player die)
 
 - Floor Falls Off
 
-- Health System
+- Health System (only die)
 
 - Stamina System
 
@@ -131,11 +131,11 @@
 		
 										---- BACKLOG ---
 
-- Fix Spline Mesh Generation
+-- Fix Spline Mesh Generation
 
-- Level Streaming / Orchestration
+- Level Streaming / Orchestration (archiEnemy)
 
-- Checkpoint System
+- Checkpoint System (archiEnemy + level streaming)
 
 - Save / Load Game
 
@@ -149,4 +149,4 @@
 
 - PinPad
 
-
+- Spikes (missing on player die)

@@ -24,7 +24,7 @@ void ARail::OnConstruction(const FTransform& Transform)
 
 		SplineMesh->SetStaticMesh(Mesh);
 		SplineMesh->SetForwardAxis(ESplineMeshAxis::Y, true);
-		SplineMesh->SetSplineUpDir(FVector(0.f, -1.f, 0.f));
+		SplineMesh->SetSplineUpDir(FVector(0.f, 1.f, 0.f));
 		SplineMesh->SetCastShadow(false);
 
 		pointLocationStart = Spline->GetLocationAtDistanceAlongSpline(idx * sectionLenght, ESplineCoordinateSpace::Type::World);
