@@ -7,6 +7,7 @@ AInteractableBase::AInteractableBase()
 
 	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = DefaultSceneRoot;
+	RootComponent->bVisualizeComponent = true;
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	StaticMesh->SetCollisionProfileName(FName("BlockAll"), false); //BlockAllDynamic
@@ -36,19 +37,7 @@ AInteractableBase::AInteractableBase()
 
 }
 
-void AInteractableBase::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-void AInteractableBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-void AInteractableBase::Interact(){}
+bool AInteractableBase::Interact(FItemStruct item) { return true; }
 
 void AInteractableBase::DisplaySignalWidget(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {

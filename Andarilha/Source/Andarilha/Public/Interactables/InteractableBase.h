@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "Collectables/ItemStruct.h"
 #include "Components/WidgetComponent.h"
 #include "InteractableBase.generated.h"
 
@@ -14,10 +15,8 @@ class ANDARILHA_API AInteractableBase : public AActor
 public:	
 	AInteractableBase();
 
-	virtual void Tick(float DeltaTime) override;
-
 	UFUNCTION()
-	virtual void Interact();
+	virtual bool Interact(FItemStruct item = {});
 
 	UFUNCTION()
 	void DisplaySignalWidget(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -37,9 +36,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "BoxTriggerSignal")
 	UBoxComponent* BoxTriggerSignal;
 
-protected:
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Index")
+	int32 index;
 
+protected:
 	UPROPERTY(VisibleAnywhere)
 	class UWidgetComponent* TriggerSignalWidget;
 };

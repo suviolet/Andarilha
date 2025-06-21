@@ -35,6 +35,10 @@ APCharacter::APCharacter()
 	MovementComponent->MaxWalkSpeed = 300.0f;
 	MovementComponent->MaxWalkSpeedCrouched = 200.0f;
 
+	 InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+	 InventoryComponent->MaxSlotSize = 6;
+	 this->AddOwnedComponent(InventoryComponent);
+
 
 	traceObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldDynamic));
 
@@ -62,6 +66,7 @@ void APCharacter::BeginPlay()
 		}
 	}
 
+	 RowNames = ItemsDataTable->GetRowNames();
 }
 
 void APCharacter::Tick(float DeltaTime)
@@ -98,34 +103,46 @@ void APCharacter::Turn(const FInputActionValue& Value)
 	AddControllerPitchInput(-TurnAxisVector.Y);
 }
 
+bool APCharacter::Interaction(bool useSelectedItem)
+{
+	UKismetSystemLibrary::SphereOverlapActors(GetWorld(), GetActorLocation(), sphereOverlapRadius, traceObjectTypes, seekClass, ignoreActors, overlappedActors);
+	DrawDebugSphere(GetWorld(), GetActorLocation(), sphereOverlapRadius, 12, FColor::Blue, false, 1.0f);
+
+	for (AActor* overlappedActor : overlappedActors)
+	{
+		AInteractableBase* Interactable = Cast<AInteractableBase>(overlappedActor);
+		UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
+
+		if (Interactable->ActorHasTag(FName("Lock")) && useSelectedItem)
+		{
+			FItemStruct item = InventoryComponent->GetSlot(InventoryComponent->currentSlotIndex)->Item;
+			return Interactable->Interact(item);
+		}
+		else if (Interactable->ActorHasTag(FName("TriggerableBase")) && !Interactable->ActorHasTag(FName("Lock")))
+		{
+			return Interactable->Interact();
+		}
+		else if (Interactable->ActorHasTag(FName("CollectableBase")) and ItemsDataTable != nullptr)
+		{
+			static const FString ContextString(TEXT("Finding Row in Items Data Table"));
+
+			FItemStruct* Item = ItemsDataTable->FindRow<FItemStruct>(RowNames[Interactable->index], ContextString);
+			bool bWasItemAdd = InventoryComponent->AddItem(*Item);
+			if (bWasItemAdd)
+			{
+				Interactable->Interact();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 void APCharacter::Interact(const FInputActionValue& Value)
 {
 	if (isAlive)
 	{
-
-		UKismetSystemLibrary::SphereOverlapActors(GetWorld(), GetActorLocation(), sphereOverlapRadius, traceObjectTypes, seekClass, ignoreActors, overlappedActors);
-		DrawDebugSphere(GetWorld(), GetActorLocation(), sphereOverlapRadius, 12, FColor::Red, false, 1.0f);
-
-		for (AActor* overlappedActor : overlappedActors)
-		{
-			AInteractableBase* Interactable = Cast<AInteractableBase>(overlappedActor);
-			if ( Interactable->ActorHasTag(FName("TriggerableBase")) )
-			{
-				UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
-				Interactable->Interact();
-			}
-			else if (Interactable->ActorHasTag(FName("CollectableBase")) )
-			{
-				UE_LOG(LogTemp, Log, TEXT("OverlappedActor  :) %s"), *Interactable->GetName());
-
-				//int32 MaxItemsOnInventory = 6;
-				// if InventoryItems.Lenght < MaxItemsOnInventory
-					// InventoryItems.append( Interactable->StructData  )
-					// Load Inventory Widget
-					// Interactable->Interact(); DESTROY ACTOR AFTER COLECTED
-				Interactable->Interact();
-			}
-		}
+		Interaction();
 	}
 }
 
@@ -153,7 +170,7 @@ void APCharacter::CustomCrouch(const FInputActionValue& Value)
 	}
 }
 
-void APCharacter::Run(const FInputActionValue& Value)
+void APCharacter::Run(const FInputActionValue& Value) //sprint
 {
 	if (isAlive)
 	{
@@ -165,6 +182,29 @@ void APCharacter::Run(const FInputActionValue& Value)
 		else {
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("! isRunning"));
 			MovementComponent->MaxWalkSpeed = 300.0f;
+		}
+	}
+}
+
+
+void APCharacter::UseItem(const FInputActionValue& Value)
+{
+	if (isAlive)
+	{
+		if (InventoryComponent->currentSlotIndex > -1)
+		{
+			bool bInteracted = Interaction(true);
+			if (bInteracted)
+			{
+				InventoryComponent->RemoveItemAtIndex(InventoryComponent->currentSlotIndex);
+				InventoryComponent->currentSlotIndex = -1;
+				//plays sound of consequence of triggerable on Object suffering consequence
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, TEXT(" NO ! "));
+				//just plays "no" sound
+			}
 		}
 	}
 }
@@ -204,13 +244,22 @@ void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 		Input->BindAction(JumpAction, ETriggerEvent::Started, this, &APCharacter::Jump);
 		Input->BindAction(InteractAction, ETriggerEvent::Started, this, &APCharacter::Interact);
+
 		Input->BindAction(LockTurnAction, ETriggerEvent::Started, this, &APCharacter::LockTurn);
 		Input->BindAction(LockTurnAction, ETriggerEvent::Completed, this, &APCharacter::LockTurn);
+
 		Input->BindAction(CrouchAction, ETriggerEvent::Started, this, &APCharacter::CustomCrouch);
 		Input->BindAction(CrouchAction, ETriggerEvent::Completed, this, &APCharacter::CustomCrouch);
+
 		Input->BindAction(RunAction, ETriggerEvent::Started, this, &APCharacter::Run);
 		Input->BindAction(RunAction, ETriggerEvent::Completed, this, &APCharacter::Run);
+
 		Input->BindAction(StartAction, ETriggerEvent::Completed, this, &APCharacter::Start);
+
+		Input->BindAction(MoveUpUIAction, ETriggerEvent::Started, InventoryComponent, &UInventoryComponent::MoveUpUI);
+		Input->BindAction(MoveDownUIAction, ETriggerEvent::Started, InventoryComponent, &UInventoryComponent::MoveDownUI);
+		Input->BindAction(UseUIAction, ETriggerEvent::Started, this, &APCharacter::UseItem);
+		Input->BindAction(DropUIAction, ETriggerEvent::Started, InventoryComponent, &UInventoryComponent::DropUI);
 	}
 
 }

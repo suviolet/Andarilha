@@ -14,8 +14,8 @@ UCLASS()
 class ANDARILHA_API ADoorBase : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	ADoorBase();
 
 	virtual void Tick(float DeltaTime) override;

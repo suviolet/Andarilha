@@ -16,7 +16,7 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Interact() override;
+	virtual bool Interact(FItemStruct item = {}) override;
 
 	TDelegate<void()> OnTriggerDelegate;
 

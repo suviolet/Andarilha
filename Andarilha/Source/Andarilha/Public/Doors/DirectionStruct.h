@@ -5,9 +5,9 @@
 #include "DirectionStruct.generated.h"
 
 USTRUCT(BlueprintType)
-struct FDirectionStruct
+struct ANDARILHA_API FDirectionStruct
 {
-    GENERATED_BODY()
+    GENERATED_USTRUCT_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DStruct")
     EOpeningDirection Option;

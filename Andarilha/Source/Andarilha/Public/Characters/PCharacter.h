@@ -5,6 +5,7 @@
 #include "InputActionValue.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Interactables/InteractableBase.h"
+#include "Components/Inventory/InventoryComponent.h"
 #include "PCharacter.generated.h"
 
 class UCapsuleComponent;
@@ -24,6 +25,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	class UCapsuleComponent* Capsule;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory Component")
+	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	class USpringArmComponent* SpringArm;
@@ -62,12 +66,27 @@ public:
 	UPROPERTY(EditAnywhere, Category = Input)
 	TObjectPtr<UInputAction> StartAction;
 
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> MoveUpUIAction;
+
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> MoveDownUIAction;
+
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> UseUIAction;
+
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> DropUIAction;
+
 	////////////////////////////////////////// INPUTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 	TArray<TEnumAsByte<EObjectTypeQuery>> traceObjectTypes;
 	TArray<AActor*> ignoreActors;
 	TArray<AActor*> overlappedActors;
 	UClass* seekClass;
+
+	 UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items Data Table")
+	 UDataTable* ItemsDataTable;
 
 	float sphereOverlapRadius;
 
@@ -82,6 +101,8 @@ private:
 
 	UCharacterMovementComponent* MovementComponent;
 
+	 TArray<FName> RowNames;
+
 	//UFUNCTION()
 	//void OnPlayerLanded(const FHitResult& Hit);
 
@@ -95,9 +116,6 @@ protected:
 	void Turn(const FInputActionValue& Value);
 
 	UFUNCTION()
-	void Interact(const FInputActionValue& Value);
-
-	UFUNCTION()
 	void LockTurn(const FInputActionValue& Value);
 
 	UFUNCTION()
@@ -108,6 +126,15 @@ protected:
 
 	UFUNCTION()
 	void Start(const FInputActionValue& Value);
+
+	UFUNCTION()
+	bool Interaction(bool useSelectedItem = false);
+
+	UFUNCTION()
+	void Interact(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void UseItem(const FInputActionValue& Value);
 
 	UFUNCTION()
 	void Die();

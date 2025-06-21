@@ -27,9 +27,10 @@ void ATriggerableBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ATriggerableBase::Interact()
+bool ATriggerableBase::Interact(FItemStruct item)
 {
 	OnTrigger();
+	return true;
 }
 
 void ATriggerableBase::OnTrigger()
