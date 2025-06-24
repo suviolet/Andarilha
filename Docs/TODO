@@ -4,7 +4,7 @@
 												------------
 
 
-- Study Climbing System and Evaluate its risks (Thurday 12th) - 
+- Start Climbing System and Evaluate its risks (X Xth) - 
 --> Same height for platforms
 --> camera relative movement based on Mesh- up, right, foward vectors
 --> 2D math 
@@ -15,13 +15,44 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
 
-					     					 (Friday 13th)
+--------
+Warnings
+--------
 
-- Inventory (Friday 13th)
-	-- Navigation 
-	-- Use
-	-- Drop
+PIE: Warning: AttachTo: '/Game/Maps/Nova.Nova:PersistentLevel.BP_Rail_C_0.DefaultSceneRoot' is not static  (in blueprint "BP_Rail"), cannot attach '/Game/Maps/Nova.Nova:PersistentLevel.BP_Rail_C_0.SplineMesh0' which is static to it. Aborting.
 
+LogBlueprint: Warning: Blueprint /Game/BPs/WBPs/WBP_ItemSlot is missing GeneratedClass asset tag
+LogBlueprint: Warning: Blueprint /Game/BPs/WBPs/WBP_Inventory is missing GeneratedClass asset tag
+LogBlueprint: Warning: Blueprint /Game/Characters/Andarilha/AnimBP_Andarilha is missing GeneratedClass asset tag
+
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'AnimGraph': AnimBlueprintGeneratedClass /Game/Characters/Andarilha/AnimBP_Andarilha.AnimBP_Andarilha_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'AnimNotify_JumpEvent': AnimBlueprintGeneratedClass /Game/Characters/Andarilha/AnimBP_Andarilha.AnimBP_Andarilha_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'BlueprintUpdateAnimation': AnimBlueprintGeneratedClass /Game/Characters/Andarilha/AnimBP_Andarilha.AnimBP_Andarilha_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'ExecuteUbergraph_AnimBP_Andarilha2': AnimBlueprintGeneratedClass /Game/Characters/Andarilha/AnimBP_Andarilha.AnimBP_Andarilha_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'AnimBlueprintGeneratedConstantData': AnimBlueprintGeneratedClass /Game/Characters/Andarilha/AnimBP_Andarilha.AnimBP_Andarilha_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'AnimBlueprintGeneratedMutableData': AnimBlueprintGeneratedClass /Game/Characters/Andarilha/AnimBP_Andarilha.AnimBP_Andarilha_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WidgetTree': WidgetBlueprintGeneratedClass /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'Button': WidgetTree /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'ButtonSlot_0': Button /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree.Button
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'ExecuteUbergraph_WBP_ItemSlot1': WidgetBlueprintGeneratedClass /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'PreConstruct': WidgetBlueprintGeneratedClass /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'ItemImage': WidgetTree /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'Overlay_58': WidgetTree /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlot_0': Overlay /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree.Overlay_58
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlot_2': Overlay /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree.Overlay_58
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'SizeBox_35': WidgetTree /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'SizeBoxSlot_0': SizeBox /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree.SizeBox_35
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'ItemName': WidgetTree /Game/BPs/WBPs/WBP_ItemSlot.WBP_ItemSlot_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WidgetTree': WidgetBlueprintGeneratedClass /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'Border': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'BorderSlot_0': Border /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree.Border
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'CanvasPanel': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'CanvasPanelSlot_0': CanvasPanel /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree.CanvasPanel
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'Image': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'Overlay_0': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlot_0': Overlay /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree.Overlay_0
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlot_1': Overlay /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree.Overlay_0
+LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
 
 -----------------------------------------------------------------
 - GDD 
@@ -35,34 +66,20 @@
 												---- JUICY ---
 												--------------
 
-- Fix Jump + Jump Animation (PlayerMontage?) (Saturday 14th)
+- Importing and executing SFXs on respective owners and moments
+	- SFX (X Xth)
+	  -- Andarilha Footsteps
+	  -- Andarilha Land
+	  -- Elevator Ambience Song
+	  -- Elevator Moving Sound
+	  -- Train Moving Sound
+	  -- Train/Elevator Doors Opening
+	  -- Train/Elevator Doors Closing
+	  -- GuardBot Chasing
+	  -- GuardBot Shooting Laser
 
-- SFX (Saturday 14th)
-  *-- Andarilha Footsteps
-  *-- Andarilha Land
-  *-- Elevator Ambience Song
-  *-- Elevator Moving Sound
-  *-- Train Moving Sound
-  -- *Train/*Elevator Doors Opening
-  -- *Train/*Elevator Doors Closing
-  *-- GuardBot Chasing
-  *-- GuardBot Shooting Laser
-- Importing and executing SFXs on respective owners and moments (Saturday/Sunday 14th/15th)
 
 - New Jump (run/sprint whatever jump) (Sunday/Monday 15th/16th)
-
-!!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
-					(Sunday/Monday 15th/16th)
-
-- Triggers by item:
-	*- LockClass (Monday 16th)
-		--- BP_PCLock
-		--- BP_LaptopLock
-		--- BP_KeyLock
-		--- BP_KeyCardLock 
-
-
----- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Monday 16th
 
 - Meshes (Monday 16th - Wednesday 18th)
 	*- GuardBot
@@ -72,40 +89,35 @@
 	-- Receptionist
 	*- Red Eye - Double Shot of Espresso in a 16 Oz dripped coffee served with an eye.
 	-- Safer
-	** PopCola
-	** Water Bottle
 	-- TV
 	*- Monitor
-	** PenDrive
-	** Chave
-	** Apple
-	*- Spikes
-	** CCTV Cameras
 	-- Propagandas
 		--- Wall Banner
 		--- BillBoard
 		--- Screens/Monitors/TV/LapTops
 
-- OpenDoorEvent
-	-- Train
-	-- Elevator
-	-- Safer
-
-- Enemy Patrolling/Chasing/Attacking (Wednesday 18th - Friday 20th)
-
----- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Saturday 21st
+- Enemy Patrolling/Chasing/Attacking
 
 - Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
 
+- Floor Falls Off
+
+- Spikes (missing on player die)
+
 - Lights Kill Player (missing on player die)
 
-- Floor Falls Off
+- Bomb
 
 - Health System (only die)
 
 - Stamina System
 
 - Game Over
+
+- OpenDoorEvent
+	-- Train
+	-- Elevator
+	-- Safer
 
 - Quests
 	-- Main
@@ -149,4 +161,3 @@
 
 - PinPad
 
-- Spikes (missing on player die)
