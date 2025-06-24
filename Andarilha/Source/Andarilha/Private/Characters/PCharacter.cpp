@@ -9,7 +9,11 @@
 
 APCharacter::APCharacter()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
 
 	Capsule = GetCapsuleComponent();
 	Capsule->SetupAttachment(RootComponent);
@@ -32,12 +36,13 @@ APCharacter::APCharacter()
 	MovementComponent = this->GetCharacterMovement();
 	MovementComponent->bOrientRotationToMovement = true;
 	MovementComponent->JumpZVelocity = 600.0f;
+	MovementComponent->GravityScale = 1.5f;
 	MovementComponent->MaxWalkSpeed = 300.0f;
 	MovementComponent->MaxWalkSpeedCrouched = 200.0f;
 
-	 InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
-	 InventoryComponent->MaxSlotSize = 6;
-	 this->AddOwnedComponent(InventoryComponent);
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+	InventoryComponent->MaxSlotSize = 6;
+	this->AddOwnedComponent(InventoryComponent);
 
 
 	traceObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldDynamic));
@@ -64,15 +69,19 @@ void APCharacter::BeginPlay()
 		{
 			Subsystem->AddMappingContext(InputMapping, 0);
 		}
+
+		PlayerController->PlayerCameraManager->ViewPitchMax = 15.f;
+		PlayerController->PlayerCameraManager->ViewPitchMin = -45.f;
 	}
 
-	 RowNames = ItemsDataTable->GetRowNames();
+	RowNames = ItemsDataTable->GetRowNames();
 }
 
-void APCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
+//void APCharacter::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//	//this->SetCameraCrouchPosition();
+//}
 
 void APCharacter::Start(const FInputActionValue& Value)
 {
@@ -186,6 +195,17 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 	}
 }
 
+void APCharacter::JumpStart()
+{
+	if (MovementComponent->IsFalling()) return;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+
+	if (AnimInstance && JumpMontage)
+	{
+		AnimInstance->Montage_Play(JumpMontage);
+	}
+}
 
 void APCharacter::UseItem(const FInputActionValue& Value)
 {
@@ -242,7 +262,8 @@ void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APCharacter::Move);
 		Input->BindAction(TurnAction, ETriggerEvent::Triggered, this, &APCharacter::Turn);
 
-		Input->BindAction(JumpAction, ETriggerEvent::Started, this, &APCharacter::Jump);
+		Input->BindAction(JumpAction, ETriggerEvent::Started, this, &APCharacter::JumpStart);
+
 		Input->BindAction(InteractAction, ETriggerEvent::Started, this, &APCharacter::Interact);
 
 		Input->BindAction(LockTurnAction, ETriggerEvent::Started, this, &APCharacter::LockTurn);

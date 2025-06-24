@@ -2,15 +2,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InputActionValue.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Interactables/InteractableBase.h"
 #include "Components/Inventory/InventoryComponent.h"
 #include "PCharacter.generated.h"
 
+class UAnimMontage;
+class UCameraComponent;
 class UCapsuleComponent;
-class UInputMappingContext;
 class UInputAction;
+class UInputMappingContext;
+class USpringArmComponent;
+struct FInputActionValue;
 
 UCLASS()
 class ANDARILHA_API APCharacter : public ACharacter
@@ -20,22 +23,54 @@ class ANDARILHA_API APCharacter : public ACharacter
 public:
 	APCharacter();
 
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	class UCapsuleComponent* Capsule;
+	UCapsuleComponent* Capsule;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory Component")
 	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	class USpringArmComponent* SpringArm;
+	USpringArmComponent* SpringArm;
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	class UCameraComponent* Camera;
+	UCameraComponent* Camera;
 	float cameraHeight;
 	float cameraDefaultHeight;
 	float cameraCrouchedHeight;
+
+	TArray<TEnumAsByte<EObjectTypeQuery>> traceObjectTypes;
+	TArray<AActor*> ignoreActors;
+	TArray<AActor*> overlappedActors;
+	UClass* seekClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items Data Table")
+	UDataTable* ItemsDataTable;
+
+	float sphereOverlapRadius;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isAlive;
+
+	bool isCrouching;
+	bool isRunning;
+	bool isTurnLocked;
+
+private:
+
+	UCharacterMovementComponent* MovementComponent;
+
+	UPROPERTY(EditAnywhere, Category = "Animation")
+	TObjectPtr<UAnimMontage> JumpMontage;
+
+	TArray<FName> RowNames;
+
+	//UFUNCTION()
+	//void OnPlayerLanded(const FHitResult& Hit);
+
+protected:
+	virtual void BeginPlay() override;
 
 	////////////////////////////////////////// INPUTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
@@ -80,35 +115,6 @@ public:
 
 	////////////////////////////////////////// INPUTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-	TArray<TEnumAsByte<EObjectTypeQuery>> traceObjectTypes;
-	TArray<AActor*> ignoreActors;
-	TArray<AActor*> overlappedActors;
-	UClass* seekClass;
-
-	 UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items Data Table")
-	 UDataTable* ItemsDataTable;
-
-	float sphereOverlapRadius;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool isAlive;
-
-	bool isCrouching;
-	bool isRunning;
-	bool isTurnLocked;
-
-private:
-
-	UCharacterMovementComponent* MovementComponent;
-
-	 TArray<FName> RowNames;
-
-	//UFUNCTION()
-	//void OnPlayerLanded(const FHitResult& Hit);
-
-protected:
-	virtual void BeginPlay() override;
-
 	UFUNCTION()
 	void Move(const FInputActionValue& Value);
 
@@ -123,6 +129,9 @@ protected:
 
 	UFUNCTION()
 	void Run(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void JumpStart();
 
 	UFUNCTION()
 	void Start(const FInputActionValue& Value);
