@@ -3,14 +3,7 @@
 												TO DO - JUNE
 												------------
 
-
-- Start Climbing System and Evaluate its risks (X Xth) - 
---> Same height for platforms
---> camera relative movement based on Mesh- up, right, foward vectors
---> 2D math 
-
--- Gonna follow yt tutorial 1, 5 , 7 , 8
-
+-- Climbing System: Gonna follow yt tutorial 5 , 7 , 8
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
@@ -68,60 +61,43 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 - Importing and executing SFXs on respective owners and moments
 	- SFX (X Xth)
-	  -- Andarilha Footsteps
-	  -- Andarilha Land
-	  -- Elevator Ambience Song
-	  -- Elevator Moving Sound
-	  -- Train Moving Sound
-	  -- Train/Elevator Doors Opening
-	  -- Train/Elevator Doors Closing
-	  -- GuardBot Chasing
-	  -- GuardBot Shooting Laser
+	  0-- Andarilha Footsteps
+	  1-- Elevator Ambience Song
+	  2-- Andarilha Land	  
+	  3-- Elevator Moving Sound
+	  4-- GuardBot Shooting Laser
+	  5-- GuardBot Chasing
+	  6-- Train Moving Sound
+	  7-- Train/Elevator Doors Opening
+	  8-- Train/Elevator Doors Closing
 
 
-- New Jump (run/sprint whatever jump) (Sunday/Monday 15th/16th)
-
-- Meshes (Monday 16th - Wednesday 18th)
+- Meshes
 	*- GuardBot
+	-- Safer
+	-- TV / Monitor
+	-- Propagandas
+		--- Wall Banner
+		--- Screens/Monitors/TV/LapTops
+		--- BillBoard
+
 	-- Eye
 	-- Train Door
 	-- Elevator Door
 	-- Receptionist
-	*- Red Eye - Double Shot of Espresso in a 16 Oz dripped coffee served with an eye.
-	-- Safer
-	-- TV
-	*- Monitor
-	-- Propagandas
-		--- Wall Banner
-		--- BillBoard
-		--- Screens/Monitors/TV/LapTops
 
 - Enemy Patrolling/Chasing/Attacking
 
 - Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
 
-- Floor Falls Off
-
 - Spikes (missing on player die)
-
-- Lights Kill Player (missing on player die)
 
 - Bomb
 
-- Health System (only die)
-
-- Stamina System
-
 - Game Over
 
-- OpenDoorEvent
-	-- Train
-	-- Elevator
-	-- Safer
+- Exit Game (Esc)
 
-- Quests
-	-- Main
-	-- Side
 
 ---- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Thursday 26th
 
@@ -134,7 +110,7 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 -----------------------------------------------------------------
 
 
-- Make Presentation Slides Pitch 25th June
+- Make Presentation Slides Pitch 26th June
 
 - Presentation Pitch 30th June
 
@@ -143,21 +119,40 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 		
 										---- BACKLOG ---
 
--- Fix Spline Mesh Generation
-
 - Level Streaming / Orchestration (archiEnemy)
+
+- Fix Spline Mesh Generation
 
 - Checkpoint System (archiEnemy + level streaming)
 
 - Save / Load Game
 
-- Eye Companion
+- Health System (only die)
+
+- Stamina System
+
+- New Jump (run/sprint whatever jump) (Sunday/Monday 15th/16th)
+
+- Eye Companion - Inventory
 
 - Coin System
 
 - Main Menu
 
 - Pause Menu
+
+- Floor Falls Off
+
+- Lights Kill Player (missing on player die)
+
+- OpenDoorEvent
+	-- Train
+	-- Elevator
+	-- Safer
+
+- Quests
+	-- Main
+	-- Side
 
 - PinPad
 

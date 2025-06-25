@@ -201,7 +201,7 @@ void APCharacter::JumpStart()
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 
-	if (AnimInstance && JumpMontage)
+	if (AnimInstance && JumpMontage && MovementComponent->MovementMode == EMovementMode::MOVE_Walking)
 	{
 		AnimInstance->Montage_Play(JumpMontage);
 	}
