@@ -1,16 +1,31 @@
 
-												------------
-												TO DO - JUNE
-												------------
+------------
+TO DO - JUNE
+------------
+
 
 -- Climbing System: Gonna follow yt tutorial 5 , 7 , 8
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
 
+
+------
+Errors
+------
+
+
+LogDataTable: Error: Missing RowStruct while emptying DataTable '/Game/Datatables/DT_Collectables.DT_Collectables'!
+LogDataTable: Error: Missing RowStruct while loading DataTable '/Game/Datatables/DT_Collectables.DT_Collectables'!
+
+
 --------
 Warnings
 --------
+
+
+LogAnimation: Warning: AnimMontage (AnimMontage /Game/Characters/Andarilha/Animations/AM_LaraJump.AM_LaraJump) contains a Segment for Slot (DefaultSlot) for which the playable length 1.000000 is out-of-sync with the represented AnimationSequence its length 1.700000
+
 
 PIE: Warning: AttachTo: '/Game/Maps/Nova.Nova:PersistentLevel.BP_Rail_C_0.DefaultSceneRoot' is not static  (in blueprint "BP_Rail"), cannot attach '/Game/Maps/Nova.Nova:PersistentLevel.BP_Rail_C_0.SplineMesh0' which is static to it. Aborting.
 
@@ -47,6 +62,7 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlo
 LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlot_1': Overlay /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree.Overlay_0
 LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
 
+
 -----------------------------------------------------------------
 - GDD 
 + 
@@ -55,9 +71,9 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 -----------------------------------------------------------------
 
-												--------------
-												---- JUICY ---
-												--------------
+--------------
+---- JUICY ---
+--------------
 
 - Importing and executing SFXs on respective owners and moments
 	- SFX (X Xth)
@@ -102,9 +118,9 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 ---- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Thursday 26th
 
 
-					 					--------------
-				   					---- JUICY ---
-					 					--------------
+--------------
+---- JUICY ---
+--------------
 
 
 -----------------------------------------------------------------
@@ -117,7 +133,8 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 -----------------------------------------------------------------
 		
-										---- BACKLOG ---
+
+---- BACKLOG ---
 
 - Level Streaming / Orchestration (archiEnemy)
 
