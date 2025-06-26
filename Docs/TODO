@@ -77,15 +77,16 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 - Importing and executing SFXs on respective owners and moments
 	- SFX (X Xth)
-	  0-- Andarilha Footsteps
+	  *0-- Andarilha Footsteps
 	  1-- Elevator Ambience Song
-	  2-- Andarilha Land	  
+	  *2-- Andarilha Land	  
 	  3-- Elevator Moving Sound
 	  4-- GuardBot Shooting Laser
 	  5-- GuardBot Chasing
 	  6-- Train Moving Sound
 	  7-- Train/Elevator Doors Opening
 	  8-- Train/Elevator Doors Closing
+	  9-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
 
 
 - Meshes
