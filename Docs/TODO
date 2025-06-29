@@ -4,11 +4,21 @@ TO DO - JUNE
 ------------
 
 
--- Climbing System: Gonna follow yt tutorial 5 , 7 , 8
-
-
 !!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
 
+- Enemy Patrolling/Chasing/Attacking
+
+- Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
+
+- Make Presentation Slides Pitch 29th June
+- GIF first level
+- what was done
+- plans for the future
+- masp / factory pompeia / banespa = reference + model - want to add to the game existing meshes from previously assignments - environment / not accessed
+
+- Exit Game (Esc)
+
+- Presentation Pitch 30th June
 
 ------
 Errors
@@ -77,12 +87,10 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 - Importing and executing SFXs on respective owners and moments
 	- SFX (X Xth)
-	  *0-- Andarilha Footsteps
-	  1-- Elevator Ambience Song
-	  *2-- Andarilha Land	  
-	  3-- Elevator Moving Sound
-	  4-- GuardBot Shooting Laser
-	  5-- GuardBot Chasing
+		1-- Elevator Ambience Song 
+		2-- GuardBot Chasing
+		3-- GuardBot Shooting Laser
+	  4-- Elevator Moving Sound
 	  6-- Train Moving Sound
 	  7-- Train/Elevator Doors Opening
 	  8-- Train/Elevator Doors Closing
@@ -103,39 +111,24 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 	-- Elevator Door
 	-- Receptionist
 
-- Enemy Patrolling/Chasing/Attacking
-
-- Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
-
 - Spikes (missing on player die)
 
 - Bomb
 
 - Game Over
 
-- Exit Game (Esc)
-
-
----- CHECKPOINT - REVIEW AND REEVALUATE DEADLINES ---- Thursday 26th
-
-
 --------------
 ---- JUICY ---
 --------------
 
-
------------------------------------------------------------------
-
-
-- Make Presentation Slides Pitch 26th June
-
-- Presentation Pitch 30th June
 
 
 -----------------------------------------------------------------
 		
 
 ---- BACKLOG ---
+
+-- Climbing System: Gonna follow yt tutorial 5 , 7 , 8
 
 - Level Streaming / Orchestration (archiEnemy)
 
@@ -174,3 +167,4 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 - PinPad
 
+- burj khalifa / NEOM
