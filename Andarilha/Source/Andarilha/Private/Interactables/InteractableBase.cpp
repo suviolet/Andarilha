@@ -7,7 +7,9 @@ AInteractableBase::AInteractableBase()
 
 	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = DefaultSceneRoot;
+#if WITH_EDITORONLY_DATA
 	RootComponent->bVisualizeComponent = true;
+#endif
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	StaticMesh->SetCollisionProfileName(FName("BlockAll"), false); //BlockAllDynamic

@@ -54,7 +54,9 @@ protected:
 
 	void ChangeCurve();
 
+#if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
 
 	void Open();
 

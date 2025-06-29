@@ -101,6 +101,7 @@ void AMovableActorBase::OnMovePreviousTriggered()
 	TimelineComp->PlayFromStart();
 }
 
+#if WITH_EDITOR
 void AMovableActorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 {
 	Super::PostEditChangeProperty(e);
@@ -110,3 +111,4 @@ void AMovableActorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 		TimelineComp->SetPlayRate(1/speedMovement);
 	}
 }
+#endif

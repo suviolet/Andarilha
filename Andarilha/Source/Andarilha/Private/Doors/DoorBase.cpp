@@ -91,6 +91,7 @@ void ADoorBase::ChangeCurve()
 	DoorCurve->FloatCurve.UpdateOrAddKey(OpeningTime, 0.f);
 }
 
+#if WITH_EDITOR
 void ADoorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 {
 	Super::PostEditChangeProperty(e);
@@ -105,6 +106,7 @@ void ADoorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 		ChangeCurve();
 	}
 }
+#endif
 
 void ADoorBase::Tick(float DeltaTime)
 {

@@ -60,7 +60,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+#if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TimelineComp")
 	UTimelineComponent* TimelineComp;

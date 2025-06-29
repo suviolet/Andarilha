@@ -16,7 +16,6 @@ APCharacter::APCharacter()
 	bUseControllerRotationRoll = false;
 
 	Capsule = GetCapsuleComponent();
-	Capsule->SetupAttachment(RootComponent);
 	Capsule->SetCapsuleHalfHeight(75, true);
 	Capsule->SetCapsuleRadius(25, true);
 
