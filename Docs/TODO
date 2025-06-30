@@ -3,18 +3,9 @@
 TO DO - JUNE
 ------------
 
-
-!!!!!!!!!!!!!!!!!!!!!!!!! BUILD ERRORS !!!!!!!!!!!!!!!!!!!!!!!!!
-
-- Enemy Patrolling/Chasing/Attacking
+- Enemy Patrolling/Attacking
 
 - Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
-
-- Make Presentation Slides Pitch 29th June
-- GIF first level
-- what was done
-- plans for the future
-- masp / factory pompeia / banespa = reference + model - want to add to the game existing meshes from previously assignments - environment / not accessed
 
 - Exit Game (Esc)
 
@@ -24,15 +15,12 @@ TO DO - JUNE
 Errors
 ------
 
-
 LogDataTable: Error: Missing RowStruct while emptying DataTable '/Game/Datatables/DT_Collectables.DT_Collectables'!
 LogDataTable: Error: Missing RowStruct while loading DataTable '/Game/Datatables/DT_Collectables.DT_Collectables'!
-
 
 --------
 Warnings
 --------
-
 
 LogAnimation: Warning: AnimMontage (AnimMontage /Game/Characters/Andarilha/Animations/AM_LaraJump.AM_LaraJump) contains a Segment for Slot (DefaultSlot) for which the playable length 1.000000 is out-of-sync with the represented AnimationSequence its length 1.700000
 
@@ -96,9 +84,7 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 	  8-- Train/Elevator Doors Closing
 	  9-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
 
-
 - Meshes
-	*- GuardBot
 	-- Safer
 	-- TV / Monitor
 	-- Propagandas
@@ -122,9 +108,8 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 --------------
 
 
-
 -----------------------------------------------------------------
-		
+
 
 ---- BACKLOG ---
 
@@ -142,7 +127,7 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 - Stamina System
 
-- New Jump (run/sprint whatever jump) (Sunday/Monday 15th/16th)
+- New Jump (run/sprint whatever jump)
 
 - Eye Companion - Inventory
 
