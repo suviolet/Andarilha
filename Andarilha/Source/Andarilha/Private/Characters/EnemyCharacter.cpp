@@ -1,5 +1,5 @@
-#include "AIController.h"
 #include "Characters/EnemyCharacter.h"
+#include "AIController.h"
 #include "Characters/PCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Navigation/PathFollowingComponent.h"
