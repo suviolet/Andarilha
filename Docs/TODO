@@ -1,15 +1,115 @@
 
 ------------
-TO DO - JUNE
+TO DO - JULY
 ------------
 
-- Enemy Patrolling/Attacking
+-----------------------------------------------------------------
+- GDD 
++ 
+- Level Design Act1 - Level 1 - City Hall + Train Station  ("level hub")
+				      Level 2 - Office 1
 
-- Player Dies - hits or hitted by enemy / projectile attack / spike / height ...
+-----------------------------------------------------------------
 
-- Exit Game (Esc)
+- Exit Game (Esc) - Thursday 10th
+https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/Kismet/UKismetSystemLibrary/QuitGame?application_version=5.3
 
-- Presentation Pitch 30th June
+- Update AInteractableBase to not attach anything to the mesh, so it doesn't affect any subcomponent - Thursday 10th
+
+- Floor Falls Off - use Fractured Mesh - Thursday 10th
+-- https://dev.epicgames.com/documentation/en-us/unreal-engine/geometry-collections-user-guide
+-- https://dev.epicgames.com/documentation/en-us/unreal-engine/fracturing-geometry-collections-user-guide
+-- https://dev.epicgames.com/community/learning/tutorials/k84m/unreal-engine-chaos-destruction-fracture-and-clustering
+
+- Get Block/Floor breaking and Fractured Block/Floor hits on floor TR SFXs - Thursday 10th
+
+--------------
+---- JUICY ---
+--------------
+
+-- Climbing System - Jump Grab - Sunday 13th
+
+- Level Streaming / Orchestration (archiEnemy)
+-- Study level streaming usage / c++ or level blueprint? - Friday  11th
+-- Implementation - Sunday 13th
+
+- Stamina System
+-- UI elements - Saturday 12th
+-- Run consume and when not running recharge %/s - Monday 14th
+-- Consume collectables to manipulate stamina values - TBD
+
+- Importing and executing SFXs on respective owners and moments
+	- SFX (X Xth)
+		1-- Elevator Ambience Song - needs implementation only - Saturday 
+		2-- Block/Floor breaking *****TR 
+		3-- Fractured Block/Floor hits floor *****TR
+		4-- Elevator Moving Sound
+		5-- Train Moving Sound
+	  6-- Train/Elevator Doors Opening
+	  7-- Train/Elevator Doors Closing
+		8-- GuardBot Chasing
+		9-- GuardBot Shooting Laser
+	  10-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
+
+- Spikes - Trap
+-- implement on player die on BP - Saturday 12th
+-- Implement in C++ - Sunday 13th
+
+- Lights Kill Player - Trap
+-- delay between to activate/deactivate mesh(no collision) and modify trigger.
+-- material light shader (emissive + translucency) or particle - study viability
+-- https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/Particles/Beam?application_version=5.6
+
+- Meshes
+	-- Safer
+	-- TV / Monitor
+	-- Propagandas
+		--- Wall Banner
+		--- Screens/Monitors/TV/LapTops
+		--- BillBoard
+	-- Eye
+	-- Train Door
+	-- Elevator Door
+	-- Receptionist
+
+- Game Over
+
+- Main Menu
+	- New Game
+	- Load Game
+  - Credits
+  	-- Team
+  	-- Used Tools
+  	-- External Assets
+  - Sandbox
+
+- Pause Menu
+	- Save
+	- Load
+	- Quit Game
+
+- Credits
+
+- Floor Falls Off - Convert to C++ becomes a trigger
+https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/GeometryCollectionEngine/GeometryCollection
+
+- Bomb
+
+- Enemy 
+	- Attacking
+	- Patrolling
+
+- OpenDoorEvent 
+	-- Train - sliding
+	-- Elevator - double sliding
+	-- Safer
+
+--------------
+---- JUICY ---
+--------------
+
+- Presentation Pitch July 21st - Friday 18th
+
 
 ------
 Errors
@@ -61,51 +161,6 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'OverlaySlo
 LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': WidgetTree /Game/BPs/WBPs/WBP_Inventory.WBP_Inventory_C:WidgetTree
 
 
------------------------------------------------------------------
-- GDD 
-+ 
-- Level Design Act1 - Level 1 - City Hall + Train Station  ("level hub")
-				      Level 2 - Office 1
-
------------------------------------------------------------------
-
---------------
----- JUICY ---
---------------
-
-- Importing and executing SFXs on respective owners and moments
-	- SFX (X Xth)
-		1-- Elevator Ambience Song 
-		2-- GuardBot Chasing
-		3-- GuardBot Shooting Laser
-	  4-- Elevator Moving Sound
-	  6-- Train Moving Sound
-	  7-- Train/Elevator Doors Opening
-	  8-- Train/Elevator Doors Closing
-	  9-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
-
-- Meshes
-	-- Safer
-	-- TV / Monitor
-	-- Propagandas
-		--- Wall Banner
-		--- Screens/Monitors/TV/LapTops
-		--- BillBoard
-
-	-- Eye
-	-- Train Door
-	-- Elevator Door
-	-- Receptionist
-
-- Spikes (missing on player die)
-
-- Bomb
-
-- Game Over
-
---------------
----- JUICY ---
---------------
 
 
 -----------------------------------------------------------------
@@ -113,38 +168,15 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 ---- BACKLOG ---
 
--- Climbing System: Gonna follow yt tutorial 5 , 7 , 8
 
-- Level Streaming / Orchestration (archiEnemy)
 
 - Fix Spline Mesh Generation
-
-- Checkpoint System (archiEnemy + level streaming)
-
-- Save / Load Game
-
-- Health System (only die)
-
-- Stamina System
 
 - New Jump (run/sprint whatever jump)
 
 - Eye Companion - Inventory
 
 - Coin System
-
-- Main Menu
-
-- Pause Menu
-
-- Floor Falls Off
-
-- Lights Kill Player (missing on player die)
-
-- OpenDoorEvent
-	-- Train
-	-- Elevator
-	-- Safer
 
 - Quests
 	-- Main
