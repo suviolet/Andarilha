@@ -45,6 +45,6 @@ bool ALock::Interact(FItemStruct item)
 void ALock::OnTrigger()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ALock::OnTrigger"));
-	OnTriggerDelegate.Execute();
+	OnTriggerDelegate.ExecuteIfBound();
 	bHasBeenTriggered = true;
 }

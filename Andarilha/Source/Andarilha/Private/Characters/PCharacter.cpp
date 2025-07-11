@@ -6,6 +6,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Widgets/InventoryWidget.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 
 APCharacter::APCharacter()
 {
@@ -23,6 +26,7 @@ APCharacter::APCharacter()
 	SpringArm->SetupAttachment(Capsule);
 	SpringArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
 	SpringArm->SetRelativeLocation(FVector(0.f, 0.f, 65.f));
+	SpringArm->ProbeSize = 0;
 	SpringArm->bUsePawnControlRotation = true;
 	SpringArm->TargetArmLength = 250.0f;
 	SpringArm->bEnableCameraLag = true;
@@ -43,6 +47,8 @@ APCharacter::APCharacter()
 	InventoryComponent->MaxSlotSize = 6;
 	this->AddOwnedComponent(InventoryComponent);
 
+	SaveSystemComponent = CreateDefaultSubobject<USaveSystemComponent>(TEXT("SaveSystem Component"));
+	this->AddOwnedComponent(SaveSystemComponent);
 
 	traceObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldDynamic));
 
@@ -62,15 +68,13 @@ void APCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	PlayerController = Cast<APlayerController>(Controller);
+	PlayerController->PlayerCameraManager->ViewPitchMax = 15.f;
+	PlayerController->PlayerCameraManager->ViewPitchMin = -45.f;
+	
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(InputMapping, 0);
-		}
-
-		PlayerController->PlayerCameraManager->ViewPitchMax = 15.f;
-		PlayerController->PlayerCameraManager->ViewPitchMin = -45.f;
+		Subsystem->AddMappingContext(InputMapping, 0);
 	}
 
 	RowNames = ItemsDataTable->GetRowNames();
@@ -228,28 +232,56 @@ void APCharacter::UseItem(const FInputActionValue& Value)
 	}
 }
 
-//void APCharacter::OnPlayerLanded(const FHitResult& Hit)
-//{
-//	// Here we may create other mechanics based on where/how the player lands
-//	if (MovementComponent->IsFalling()) {
-//		const float fallSpeed = this->GetVelocity().Z;
-//		if (fallSpeed <= -700.0f) {
-//			this->Die();
-//		}
-//	}
-//}
+
+void APCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	if (MovementComponent->IsFalling()) {
+		const float fallSpeed = this->GetVelocity().Z;
+		UE_LOG(LogTemp, Log, TEXT("APCharacter::Landed : speed %f"), fallSpeed);
+		if (fallSpeed <= -1000.0f)
+		{
+			this->Die();
+		}
+	}
+}
 
 void APCharacter::Die()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Die!"))
-	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Die!"));
-	//
-	// it may apply some changes on the mesh/capsule collider
-	// here changes GameMode?GameState to GameOver 
-	// -> then will disable inputs 
-	// -> display game over on screen 
-	// -> reallow inputs to restart 
-	// 
+	if (isAlive)
+	{
+		isAlive = false;
+		UE_LOG(LogTemp, Log, TEXT("APCharacter::Die"));
+
+		UWidgetLayoutLibrary::RemoveAllWidgets(this);
+		PlayerController->PlayerCameraManager->StartCameraFade(0.f, 1.f, 1.f, FLinearColor::Black, true, true);
+
+		if (GameOverWidgetClass != nullptr)
+		{
+			gameOverWidget = CreateWidget<UUserWidget>(UGameplayStatics::GetPlayerController(this, 0), GameOverWidgetClass);
+			gameOverWidget->AddToViewport();
+		}
+
+		FTimerHandle TimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &APCharacter::RestartLastSave, 3.f); 
+	}
+}
+
+void APCharacter::ExitGame(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp, Log, TEXT("APCharacter::ExitGame"));
+	UKismetSystemLibrary::QuitGame(this, this->PlayerController, EQuitPreference::Quit, true);
+}
+
+void APCharacter::RestartLastSave()
+{
+	isAlive = true;
+	UWidgetLayoutLibrary::RemoveAllWidgets(this);
+	SaveSystemComponent->Load(FInputActionValue());
+	PlayerController->PlayerCameraManager->StopCameraFade();
+
+	UInventoryWidget* inventoryWidget = InventoryComponent->widget;
+	inventoryWidget->AddToViewport();
 }
 
 void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -276,10 +308,19 @@ void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 		Input->BindAction(StartAction, ETriggerEvent::Completed, this, &APCharacter::Start);
 
+		//// Inventory UI Interaction
 		Input->BindAction(MoveUpUIAction, ETriggerEvent::Started, InventoryComponent, &UInventoryComponent::MoveUpUI);
 		Input->BindAction(MoveDownUIAction, ETriggerEvent::Started, InventoryComponent, &UInventoryComponent::MoveDownUI);
 		Input->BindAction(UseUIAction, ETriggerEvent::Started, this, &APCharacter::UseItem);
 		Input->BindAction(DropUIAction, ETriggerEvent::Started, InventoryComponent, &UInventoryComponent::DropUI);
+		////
+
+		//// Menu elements
+		Input->BindAction(SaveAction, ETriggerEvent::Started, SaveSystemComponent, &USaveSystemComponent::Save);
+		Input->BindAction(LoadAction, ETriggerEvent::Started, SaveSystemComponent, &USaveSystemComponent::Load);
+
+		Input->BindAction(ExitGameAction, ETriggerEvent::Started, this, &APCharacter::ExitGame);
+		////
 	}
 
 }

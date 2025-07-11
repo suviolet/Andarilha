@@ -12,8 +12,6 @@ class ANDARILHA_API AFloorButton : public ATriggerableBase
 public:
 	AFloorButton();
 
-	virtual void Tick(float DeltaTime) override;
-
 	UFUNCTION()
 	void TurnOnTrigger(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 

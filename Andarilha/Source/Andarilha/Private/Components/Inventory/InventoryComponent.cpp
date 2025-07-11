@@ -1,12 +1,12 @@
 #include "Components/Inventory/InventoryComponent.h"
 #include "Components/WrapBox.h"
+#include "Kismet/GameplayStatics.h"
 #include "Widgets/ItemSlotWidget.h"
 #include "Widgets/InventoryWidget.h"
-//#include "Components/Button.h"
 
 UInventoryComponent::UInventoryComponent()
 {
-    PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = false;
     InventorySlots.Reserve(GetMaxSize());
     currentSlotIndex = -1;
 }
@@ -14,7 +14,7 @@ UInventoryComponent::UInventoryComponent()
 
 void UInventoryComponent::BeginPlay()
 {
-    Super::BeginPlay();
+	Super::BeginPlay();
     if (InventoryWidgetClass != nullptr)
     {
         widget = CreateWidget<UInventoryWidget>(UGameplayStatics::GetPlayerController(this, 0), InventoryWidgetClass);
@@ -116,7 +116,7 @@ void UInventoryComponent::MoveDownUI(const FInputActionValue& Value)
     int32 count = GetLength();
     if (count > 0)
     {
-        if (currentSlotIndex == -1 || currentSlotIndex == count - 1)
+        if (currentSlotIndex == -1 || currentSlotIndex == count-1)
         {
             currentSlotIndex = 0;
         }

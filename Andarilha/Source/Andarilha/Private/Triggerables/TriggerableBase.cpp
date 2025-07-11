@@ -35,6 +35,6 @@ bool ATriggerableBase::Interact(FItemStruct item)
 
 void ATriggerableBase::OnTrigger()
 {
-	OnTriggerDelegate.Execute();
+	OnTriggerDelegate.ExecuteIfBound();
 	bHasBeenTriggered = true;
 }

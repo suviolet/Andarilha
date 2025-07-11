@@ -3,7 +3,7 @@
 
 ARail::ARail()
 {
-	//sectionLength = 100.f; // make this editable
+
 }
 
 void ARail::BeginPlay()

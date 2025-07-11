@@ -20,12 +20,6 @@ void AFloorButton::BeginPlay()
 
 }
 
-void AFloorButton::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 void AFloorButton::TurnOnTrigger(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
@@ -54,7 +48,7 @@ void AFloorButton::OnTrigger()
 {
 	if (!bHasBeenTriggered)
 	{
-		OnTriggerDelegate.Execute();
+		OnTriggerDelegate.ExecuteIfBound();
 		bHasBeenTriggered = true;
 	}
 }

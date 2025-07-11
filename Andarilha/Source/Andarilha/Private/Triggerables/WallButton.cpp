@@ -40,7 +40,7 @@ void AWallButton::OnTrigger()
 {
 	if (!bHasBeenTriggered)
 	{
-		OnTriggerDelegate.Execute();
+		OnTriggerDelegate.ExecuteIfBound();
 		TimelineComp->Play();
 		bHasBeenTriggered = true;
 	}

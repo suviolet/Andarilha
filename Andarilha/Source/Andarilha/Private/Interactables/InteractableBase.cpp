@@ -4,6 +4,7 @@
 AInteractableBase::AInteractableBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
+	bDisplayWidget = true;
 
 	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = DefaultSceneRoot;
@@ -18,11 +19,11 @@ AInteractableBase::AInteractableBase()
 
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
 	Box->InitBoxExtent(FVector(32.f, 32.f, 32.f));
-	Box->SetupAttachment(StaticMesh);
+	Box->SetupAttachment(RootComponent);
 
 	BoxTriggerSignal = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxTriggerSignal"));
 	BoxTriggerSignal->InitBoxExtent(FVector(90.f, 90.f, 90.f));
-	BoxTriggerSignal->SetupAttachment(StaticMesh);
+	BoxTriggerSignal->SetupAttachment(RootComponent);
 
 	static ConstructorHelpers::FClassFinder<UUserWidget>TriggerSignalWidgetClassFound(TEXT("/Script/UMG.WidgetBlueprintGeneratedClass'/Game/BPs/WBPs/WBP_TriggerSignal.WBP_TriggerSignal_C'"));
 	if (TriggerSignalWidgetClassFound.Class != nullptr)
@@ -46,7 +47,7 @@ void AInteractableBase::DisplaySignalWidget(UPrimitiveComponent* OverlappedComp,
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		//if (APCharacter* PCharacter = Cast<APCharacter>(OtherActor))
-		if (OtherActor->ActorHasTag(FName("PCharacter")))
+		if (OtherActor->ActorHasTag(FName("PCharacter")) && bDisplayWidget)
 		{
 			TriggerSignalWidget->SetVisibility(true);
 		}
@@ -58,7 +59,7 @@ void AInteractableBase::RemoveSignalWidget(UPrimitiveComponent* OverlappedComp, 
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		//if (APCharacter* PCharacter = Cast<APCharacter>(OtherActor))
-		if (OtherActor->ActorHasTag(FName("PCharacter")))
+		if (OtherActor->ActorHasTag(FName("PCharacter")) && bDisplayWidget)
 		{
 			TriggerSignalWidget->SetVisibility(false);
 		}

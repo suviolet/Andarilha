@@ -5,6 +5,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Interactables/InteractableBase.h"
 #include "Components/Inventory/InventoryComponent.h"
+#include "Components/SaveSystem/SaveSystemComponent.h"
 #include "PCharacter.generated.h"
 
 class UAnimMontage;
@@ -27,10 +28,24 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION()
+	void Die();
+
+	UFUNCTION()
+	void RestartLastSave();
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "GameOverWidgetClass"))
+	TSubclassOf<UUserWidget> GameOverWidgetClass;
+
+	UUserWidget* gameOverWidget;
+
 	UCapsuleComponent* Capsule;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory Component")
 	UInventoryComponent* InventoryComponent;
+
+	 UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "SaveSystem Component")
+	 USaveSystemComponent* SaveSystemComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	USpringArmComponent* SpringArm;
@@ -61,13 +76,12 @@ private:
 
 	UCharacterMovementComponent* MovementComponent;
 
+	APlayerController* PlayerController;
+
 	UPROPERTY(EditAnywhere, Category = "Animation")
 	TObjectPtr<UAnimMontage> JumpMontage;
 
 	TArray<FName> RowNames;
-
-	//UFUNCTION()
-	//void OnPlayerLanded(const FHitResult& Hit);
 
 protected:
 	virtual void BeginPlay() override;
@@ -113,6 +127,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input)
 	TObjectPtr<UInputAction> DropUIAction;
 
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> SaveAction;
+
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> LoadAction;
+
+	UPROPERTY(EditAnywhere, Category = Input)
+	TObjectPtr<UInputAction> ExitGameAction;
+
 	////////////////////////////////////////// INPUTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 	UFUNCTION()
@@ -146,6 +169,9 @@ protected:
 	void UseItem(const FInputActionValue& Value);
 
 	UFUNCTION()
-	void Die();
+	void Landed(const FHitResult& Hit) override;
+
+	UFUNCTION()
+	void ExitGame(const FInputActionValue& Value);
 
 };

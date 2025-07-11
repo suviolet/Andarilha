@@ -19,9 +19,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMesh* Mesh;
 
-	//UPROPERTY(EditAnywhere, Category = "sectionLength")
-	//float sectionLength;
-
 protected:
 	virtual void BeginPlay() override;
 };

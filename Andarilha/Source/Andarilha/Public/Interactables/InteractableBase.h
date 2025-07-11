@@ -39,6 +39,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Index")
 	int32 index;
 
+	bool bDisplayWidget;
+
 protected:
 	UPROPERTY(VisibleAnywhere)
 	class UWidgetComponent* TriggerSignalWidget;

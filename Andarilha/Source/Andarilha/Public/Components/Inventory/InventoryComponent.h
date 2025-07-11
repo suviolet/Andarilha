@@ -4,19 +4,18 @@
 #include "Components/ActorComponent.h"
 #include "InputActionValue.h"
 #include "../../Collectables/ItemStruct.h"
-#include "Kismet/GameplayStatics.h"
 #include "InventorySlot.h"
 #include "InventoryComponent.generated.h"
 
 class UInventoryWidget;
 
 
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ANDARILHA_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:
+public:	
 	UInventoryComponent();
 
 	TMulticastDelegate<void(TArray<FItemStruct>, int32)> OnInventoryChangeEvent;
@@ -25,7 +24,7 @@ public:
 	TSubclassOf<UInventoryWidget> InventoryWidgetClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "MaxSlotSize")) // SaveGame property
-		int32 MaxSlotSize;
+	int32 MaxSlotSize;
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	virtual bool AddItem(FItemStruct Item);
@@ -66,6 +65,6 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "InventorySlots"))  // SaveGame property
-		TArray<UInventorySlot*> InventorySlots;
+	TArray<UInventorySlot*> InventorySlots;
 
 };
