@@ -11,14 +11,9 @@ TO DO - JULY
 
 -----------------------------------------------------------------
 
-- Exit Game (Esc) - Thursday 10th
-https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/Kismet/UKismetSystemLibrary/QuitGame?application_version=5.3
-
-- Update AInteractableBase to not attach anything to the mesh, so it doesn't affect any subcomponent - Thursday 10th
-
 - Floor Falls Off - use Fractured Mesh - Thursday 10th
--- https://dev.epicgames.com/documentation/en-us/unreal-engine/geometry-collections-user-guide
 -- https://dev.epicgames.com/documentation/en-us/unreal-engine/fracturing-geometry-collections-user-guide
+-- https://dev.epicgames.com/documentation/en-us/unreal-engine/chaos-destruction-in-unreal-engine
 -- https://dev.epicgames.com/community/learning/tutorials/k84m/unreal-engine-chaos-destruction-fracture-and-clustering
 
 - Get Block/Floor breaking and Fractured Block/Floor hits on floor TR SFXs - Thursday 10th
@@ -29,9 +24,12 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/K
 
 -- Climbing System - Jump Grab - Sunday 13th
 
-- Level Streaming / Orchestration (archiEnemy)
+- Level Streaming / Orchestration (archiEnemy) - c++
 -- Study level streaming usage / c++ or level blueprint? - Friday  11th
 -- Implementation - Sunday 13th
+https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-cplusplus-in-unreal-engine
+https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-blueprints-in-unreal-engine
+
 
 - Stamina System
 -- UI elements - Saturday 12th
@@ -51,10 +49,6 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/K
 		9-- GuardBot Shooting Laser
 	  10-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
 
-- Spikes - Trap
--- implement on player die on BP - Saturday 12th
--- Implement in C++ - Sunday 13th
-
 - Lights Kill Player - Trap
 -- delay between to activate/deactivate mesh(no collision) and modify trigger.
 -- material light shader (emissive + translucency) or particle - study viability
@@ -71,8 +65,6 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/K
 	-- Train Door
 	-- Elevator Door
 	-- Receptionist
-
-- Game Over
 
 - Main Menu
 	- New Game
@@ -93,7 +85,6 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/K
 - Floor Falls Off - Convert to C++ becomes a trigger
 https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/GeometryCollectionEngine/GeometryCollection
 
-- Bomb
 
 - Enemy 
 	- Attacking
@@ -114,6 +105,8 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Geometry
 ------
 Errors
 ------
+
+UnrealEditor_UGToolBox_0006!TBaseUObjectMethodDelegateInstance<0,APCharacter,void __cdecl(void),FNotThreadSafeNotCheckedDelegateUserPolicy>::Execute() [C:\Program Files\Epic Games\UE_5.3\Engine\Source\Runtime\Core\Public\Delegates\DelegateInstancesImpl.h:650]
 
 LogDataTable: Error: Missing RowStruct while emptying DataTable '/Game/Datatables/DT_Collectables.DT_Collectables'!
 LogDataTable: Error: Missing RowStruct while loading DataTable '/Game/Datatables/DT_Collectables.DT_Collectables'!
@@ -185,3 +178,8 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 - PinPad
 
 - burj khalifa / NEOM
+
+- Spikes - Trap
+-- Implement in C++
+
+- Bomb
