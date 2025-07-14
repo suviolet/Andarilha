@@ -24,7 +24,7 @@ void USaveSystemComponent::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT(" It has a Save at BegingPlay! "));
 		CurrentSaveGame = Cast<USlotSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
 
-		PlayerCharacter->SetActorTransform(CurrentSaveGame->Data.ActorTransform);
+		//PlayerCharacter->SetActorTransform(CurrentSaveGame->Data.ActorTransform);
 		//PlayerCharacter->Controller.transfo
 		// Load Level?
 		// Load Inventory?
