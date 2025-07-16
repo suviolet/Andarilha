@@ -239,7 +239,7 @@ void APCharacter::Landed(const FHitResult& Hit)
 	if (MovementComponent->IsFalling()) {
 		const float fallSpeed = this->GetVelocity().Z;
 		UE_LOG(LogTemp, Log, TEXT("APCharacter::Landed : speed %f"), fallSpeed);
-		if (fallSpeed <= -1000.0f)
+		if (fallSpeed <= -1350.0f) // =~ 6 meters
 		{
 			this->Die();
 		}
