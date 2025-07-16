@@ -6,52 +6,39 @@ TO DO - JULY
 - GDD 
 + 
 - Level Design Act1 - Level 1 - City Hall + Train Station  ("level hub")
+--> Add barrier/walls on Nova Downtown - not invisible
 
 - Level 2 - Office 1
-	--> Add light between movable platform and wall button
-
-- Level TB Ref
-	--> Add icons to show that the player needs to run and jump
-
-
-
---> Add barrier/walls on Nova Downtown - not invisible
--->
-
+	--> Add light between movable wall and wall button - portal ref
+	--> Get TR-ref gym level and include
+		-> Add door delay time - open/close?
 
 -----------------------------------------------------------------
-
-- Get Block/Floor breaking and Fractured Block/Floor hits on floor TR SFXs - Monday 14th
 
 --------------
 ---- JUICY ---
 --------------
 
--- Climbing System - Jump Grab - Sunday 13th
-
 - Level Streaming / Orchestration (archiEnemy) - c++
--- Implementation - Sunday 13th
+-- Implementation - Wednesday 16th
 https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-cplusplus-in-unreal-engine
 https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-blueprints-in-unreal-engine
 
-
 - Stamina System
--- UI elements - Monday 14th
--- Run consume and when not running recharge %/s - Monday 14th
+-- UI elements - Thursday 17th
+-- Run consume and when not running recharge %/s - Thursday 17th
 -- Consume collectables to manipulate stamina values - TBD
 
 - Importing and executing SFXs on respective owners and moments
 	- SFX (X Xth)
-		1-- Elevator Ambience Song - needs implementation only - Saturday 
-		2-- Block/Floor breaking *****TR 
-		3-- Fractured Block/Floor hits floor *****TR
-		4-- Elevator Moving Sound
-		5-- Train Moving Sound
-	  6-- Train/Elevator Doors Opening
-	  7-- Train/Elevator Doors Closing
-		8-- GuardBot Chasing
-		9-- GuardBot Shooting Laser
-	  10-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
+		1-- Elevator Ambience Song - needs implementation only - Thursday 17th
+		2-- Elevator Moving Sound
+		3-- Train Moving Sound
+	  4-- Train/Elevator Doors Opening
+	  5-- Train/Elevator Doors Closing
+		6-- GuardBot Chasing
+		7-- GuardBot Shooting Laser
+	  8-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
 
 - Lights Kill Player - Trap
 -- delay between to activate/deactivate mesh(no collision) and modify trigger.
@@ -71,9 +58,11 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloadin
 	-- Receptionist
 
 -----------------------------------------------------------------
+
 --
 UI
 --
+
 ** diagetic / non diagetic
 
 - Controller
@@ -95,6 +84,7 @@ UI
 - Credits
 
 -----------------------------------------------------------------
+
 - Enemy 
 	- Attacking
 	- Patrolling
@@ -201,3 +191,7 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 - Floor Falls Off - Convert to C++ becomes a trigger
 https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/GeometryCollectionEngine/GeometryCollection
 
+
+-- Toon Shader
+GDC
+https://www.youtube.com/watch?v=gdBACyIOCtc
