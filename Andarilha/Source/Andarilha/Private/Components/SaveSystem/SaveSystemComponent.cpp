@@ -35,7 +35,7 @@ void USaveSystemComponent::BeginPlay()
 		CurrentSaveGame = CastChecked<USlotSaveGame>(UGameplayStatics::CreateSaveGameObject(USlotSaveGame::StaticClass()));
 
 		CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
-		// Save Level?
+		CurrentSaveGame->Data.Level = CurrentLevel;   
 		// Save Inventory?
 
 		UGameplayStatics::SaveGameToSlot(CurrentSaveGame, SaveSlotName, 0);
@@ -50,7 +50,7 @@ void USaveSystemComponent::Save(const FInputActionValue& Value)
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 	{
 		CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
-		// Save Level?
+		CurrentSaveGame->Data.Level = CurrentLevel;
 		// Save Inventory?
 
 		UGameplayStatics::SaveGameToSlot(CurrentSaveGame, SaveSlotName, 0);
@@ -69,6 +69,8 @@ void USaveSystemComponent::Load(const FInputActionValue& Value)
 
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 	{
+		FLatentActionInfo LatentInfo;
+		UGameplayStatics::LoadStreamLevel(this, CurrentSaveGame->Data.Level, true, false, LatentInfo);
 		PlayerCharacter->SetActorTransform(CurrentSaveGame->Data.ActorTransform);
 	}
 	else

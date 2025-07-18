@@ -30,6 +30,9 @@ public:
 	UPROPERTY()
 	TObjectPtr<USlotSaveGame> CurrentSaveGame;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FName CurrentLevel;
+
 protected:
 	virtual void BeginPlay() override;
 

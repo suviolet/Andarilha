@@ -13,8 +13,8 @@ public:
 	UPROPERTY()
 	FTransform ActorTransform;
 
-	//UPROPERTY()
-	//FName Level;
+	UPROPERTY()
+	FName Level;
 
 	//UPROPERTY()
 	//TArray<uint8> InventoryByteData;

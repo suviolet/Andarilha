@@ -20,10 +20,10 @@ public:
 
 	TDelegate<void()> OnTriggerDelegate;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DoorTriggerableReference")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "DoorTriggerableReference")
 	ADoorBase* DoorTriggerableReference;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovableTriggerableReference")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "MovableTriggerableReference")
 	AMovableActorBase* MovableTriggerableReference;
 
 	bool bHasBeenTriggered;
