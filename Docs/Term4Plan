@@ -1,0 +1,47 @@
+Term 4 Plan
+-----------
+
+--------------
+# Have to have
+--------------
+- Evolve Level Design and Environment Art on following sections and levels:
+	- Level 1:
+		Section 1 - Train -> Add train door + Train SFX
+		Section 2 - City Hall ->
+			Add elevator door + Elevator SFX
+			Create and place coffee shop 
+		Section 3 - Mayor's Office -> 
+		Section 4 - Toscos Office (1) -> Add light between movable wall and wall button - Portal ref
+- UI’s
+	- Main Menu
+	- Pause
+	- Save
+	- Credits
+	- Controllers
+	- Stamina
+	- etc
+- Stamina System
+- Fix Level Streaming bug
+- Light trap
+- Other traps
+- Trigger sliding door
+
+--------------------
+# Would like to have
+--------------------
+- Fix Spline Mesh Generation bug
+- Quest System
+- Guardbot
+	- Patrolling
+	- Attacking
+	- SFXs
+
+---------------
+# Dream to have
+--------------------
+- Factory Level
+- Museum Level
+- Eye inventory companion
+- Coin System
+- Nova Downtown buildings – Neom References
+- Level Streaming converted to c++

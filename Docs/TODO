@@ -17,14 +17,9 @@ TO DO - JULY
 ---- JUICY ---
 --------------
 
-- Level Streaming / Orchestration (archiEnemy) - c++
--- Implementation - Wednesday 16th
-https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-cplusplus-in-unreal-engine
-https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-blueprints-in-unreal-engine
-
 - Stamina System
--- UI elements - Thursday 17th
--- Run consume and when not running recharge %/s - Thursday 17th
+-- UI elements - TBD
+-- Run consume and when not running recharge %/s - TBD
 -- Consume collectables to manipulate stamina values - TBD
 
 - Importing and executing SFXs on respective owners and moments
@@ -158,6 +153,9 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 ---- BACKLOG ---
 
+- Level Streaming / Orchestration (archiEnemy) - c++
+https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-cplusplus-in-unreal-engine
+https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-blueprints-in-unreal-engine
 
 
 - Fix Spline Mesh Generation
