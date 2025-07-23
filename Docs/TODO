@@ -112,6 +112,9 @@ LogAnimation: Warning: AnimMontage (AnimMontage /Game/Characters/Andarilha/Anima
 
 PIE: Warning: AttachTo: '/Game/Maps/Nova.Nova:PersistentLevel.BP_Rail_C_0.DefaultSceneRoot' is not static  (in blueprint "BP_Rail"), cannot attach '/Game/Maps/Nova.Nova:PersistentLevel.BP_Rail_C_0.SplineMesh0' which is static to it. Aborting.
 
+PIE: Warning: AttachTo: '/Game/Maps/Nova/Downtown.Downtown:PersistentLevel.BP_Fence_C_8.DefaultSceneRoot' is not static  (in blueprint "BP_Fence"), cannot attach '/Game/Maps/Nova/Downtown.Downtown:PersistentLevel.BP_Fence_C_8.SplineMesh45' which is static to it. Aborting.
+
+
 LogBlueprint: Warning: Blueprint /Game/BPs/WBPs/WBP_ItemSlot is missing GeneratedClass asset tag
 LogBlueprint: Warning: Blueprint /Game/BPs/WBPs/WBP_Inventory is missing GeneratedClass asset tag
 LogBlueprint: Warning: Blueprint /Game/Characters/Andarilha/AnimBP_Andarilha is missing GeneratedClass asset tag
