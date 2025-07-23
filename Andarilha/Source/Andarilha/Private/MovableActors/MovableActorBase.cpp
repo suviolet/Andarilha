@@ -1,19 +1,37 @@
 #include "MovableActors/MovableActorBase.h"
+#include "Components/BoxComponent.h"
 
 AMovableActorBase::AMovableActorBase()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = DefaultSceneRoot;
 
-	Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
-	Arrow->SetupAttachment(RootComponent);
+	MovingDirectionArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("MovingDirectionArrow"));
+	MovingDirectionArrow->SetupAttachment(RootComponent);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetCollisionProfileName(FName("BlockAll"), false); //BlockAllDynamic
-	Mesh->SetSimulatePhysics(false);//true
+	Mesh->SetCollisionProfileName(FName("BlockAll"), false);
+	Mesh->SetSimulatePhysics(false);
 	Mesh->SetupAttachment(RootComponent);
+
+	LeftDoorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftDoorMesh"));
+	LeftDoorMesh->SetCollisionProfileName(FName("BlockAll"), false);
+	LeftDoorMesh->SetSimulatePhysics(false);
+	LeftDoorMesh->SetupAttachment(Mesh);
+
+	RightDoorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RightDoorMesh"));
+	RightDoorMesh->SetCollisionProfileName(FName("BlockAll"), false);
+	RightDoorMesh->SetSimulatePhysics(false);
+	RightDoorMesh->SetupAttachment(Mesh);
+
+	EntranceDoorBox = CreateDefaultSubobject<UBoxComponent>(TEXT("EntranceDoorBox"));
+	EntranceDoorBox->SetupAttachment(RootComponent);
+	EntranceDoorBox->OnComponentEndOverlap.AddDynamic(this, &AMovableActorBase::OnEntranceEndOverlap);
+
+	EntranceDirectionArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("EntranceDirectionArrow"));
+	EntranceDirectionArrow->SetupAttachment(EntranceDoorBox);
 
 	currentPointIdx = 0;
 	bIsMovingForward = true;
@@ -24,29 +42,30 @@ AMovableActorBase::AMovableActorBase()
 	Curve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
 
 	speedMovement = 5;
-	TimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineComponent"));
+	TimelineMovementComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineMovementComp"));
+	TimelineDoorComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineDoorComp"));
 
 }
 
 void AMovableActorBase::BeginPlay()
 {
 	Super::BeginPlay();
+
 	Spline = SplineActor->Spline;
-	TimelineCallback.BindDynamic(this, &AMovableActorBase::MoveToPoint);
 	numberOfSplinePoints = SplineActor->Spline->GetNumberOfSplinePoints();
-	TimelineComp->SetPlayRate(1 / speedMovement);
-	TimelineComp->AddInterpFloat(Curve, TimelineCallback);
-}
 
-void AMovableActorBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	TimelineMovingCallback.BindDynamic(this, &AMovableActorBase::MoveToPoint);
+	TimelineMovementComp->SetPlayRate(1 / speedMovement);
+	TimelineMovementComp->AddInterpFloat(Curve, TimelineMovingCallback);
 
+	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::CloseDoor);
+	TimelineDoorComp->SetPlayRate(1 / speedMovement);
+	TimelineDoorComp->AddInterpFloat(Curve, TimelineOpenCloseDoorCallback);
 }
 
 void AMovableActorBase::MoveToPoint(float Alpha)
 {
-	FRotator ArrowRotation = Arrow->GetRelativeRotation();
+	FRotator ArrowRotation = MovingDirectionArrow->GetRelativeRotation();
 	FTransform start = Spline->GetTransformAtSplinePoint(CurrenctLocation.InputKey, ESplineCoordinateSpace::World);
 	FTransform end = Spline->GetTransformAtSplinePoint(NextLocation.InputKey, ESplineCoordinateSpace::World);
 
@@ -82,7 +101,7 @@ void AMovableActorBase::OnMoveNextTriggered()
 		bIsMovingForward = false;
 		OnMovePreviousTriggered();
 	}
-	TimelineComp->PlayFromStart();
+	TimelineMovementComp->PlayFromStart();
 }
 
 void AMovableActorBase::OnMovePreviousTriggered()
@@ -98,7 +117,7 @@ void AMovableActorBase::OnMovePreviousTriggered()
 		bIsMovingForward = true;
 		OnMoveNextTriggered();
 	}
-	TimelineComp->PlayFromStart();
+	TimelineMovementComp->PlayFromStart();
 }
 
 #if WITH_EDITOR
@@ -108,7 +127,38 @@ void AMovableActorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 	FName PropertyName = (e.Property != NULL) ? e.Property->GetFName() : NAME_None;
 	if (PropertyName == GET_MEMBER_NAME_CHECKED(AMovableActorBase, speedMovement))
 	{
-		TimelineComp->SetPlayRate(1/speedMovement);
+		TimelineMovementComp->SetPlayRate(1/speedMovement);
 	}
 }
 #endif
+
+void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		if (OtherActor->ActorHasTag(FName("PCharacter")))
+		{
+			float dotProduct = OtherActor->GetActorForwardVector() | EntranceDirectionArrow->GetForwardVector();
+			if (dotProduct > 0)
+			{
+				//CloseDoor();
+				GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("AMovableActorBase::OnEntranceEndOverlap"));
+				TimelineDoorComp->PlayFromStart();
+			}
+		}
+	}
+}
+
+void AMovableActorBase::OpenDoor(float Alpha)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("AMovableActorBase::OpenDoor"));
+	// opens door
+	// plays sound while opening door
+}
+
+void AMovableActorBase::CloseDoor(float Alpha)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, TEXT("AMovableActorBase::CloseDoor"));
+	// closes door
+	// plays sound while closing door
+}
