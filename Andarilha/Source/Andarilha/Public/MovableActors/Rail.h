@@ -6,6 +6,8 @@
 #include "MovableActors/SplineBase.h"
 #include "Rail.generated.h"
 
+class USplineMeshComponent;
+
 UCLASS()
 class ANDARILHA_API ARail : public ASplineBase
 {
@@ -18,6 +20,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMesh* Mesh;
+
+	UPROPERTY(VisibleAnywhere)
+	TArray<USplineMeshComponent*> SplineMeshComponents;
 
 protected:
 	virtual void BeginPlay() override;

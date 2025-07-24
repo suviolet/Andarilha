@@ -28,23 +28,25 @@ void ARail::OnConstruction(const FTransform& Transform)
 
 		SplineMesh->SetStaticMesh(Mesh);
 		SplineMesh->SetForwardAxis(ESplineMeshAxis::Y, true);
+		SplineMesh->SetMobility(EComponentMobility::Static);
 		//SplineMesh->SetSplineUpDir(FVector(0.f, 1.f, 0.f));
 		//SplineMesh->SetSplineUpDir(Spline->GetUpVectorAtDistanceAlongSpline( ((idx * meshLength) + meshLength) / 2, ESplineCoordinateSpace::Type::World));
-		SplineMesh->SetSplineUpDir(Spline->GetRightVectorAtDistanceAlongSpline(((idx * meshLength) + meshLength) / 2, ESplineCoordinateSpace::Type::World));
+		SplineMesh->SetSplineUpDir(Spline->GetRightVectorAtDistanceAlongSpline(((idx * meshLength) + meshLength) / 2, ESplineCoordinateSpace::Type::Local));
 		//SplineMesh->SetSplineUpDir(Spline->GetForwardVector());
 		SplineMesh->SetCastShadow(false);
 
-		pointLocationStart = Spline->GetLocationAtDistanceAlongSpline(idx * meshLength, ESplineCoordinateSpace::Type::World);
-		pointTangentStart = Spline->GetTangentAtDistanceAlongSpline(idx * meshLength, ESplineCoordinateSpace::Type::World);
+		pointLocationStart = Spline->GetLocationAtDistanceAlongSpline(idx * meshLength, ESplineCoordinateSpace::Type::Local);
+		pointTangentStart = Spline->GetTangentAtDistanceAlongSpline(idx * meshLength, ESplineCoordinateSpace::Type::Local);
 		pointTangentStart = UKismetMathLibrary::ClampVectorSize(pointTangentStart, 0.f, meshLength);
 
-		pointLocationEnd = Spline->GetLocationAtDistanceAlongSpline((idx + 1) * meshLength, ESplineCoordinateSpace::Type::World);
-		pointTangentEnd = Spline->GetTangentAtDistanceAlongSpline((idx + 1) * meshLength, ESplineCoordinateSpace::Type::World);
+		pointLocationEnd = Spline->GetLocationAtDistanceAlongSpline((idx + 1) * meshLength, ESplineCoordinateSpace::Type::Local);
+		pointTangentEnd = Spline->GetTangentAtDistanceAlongSpline((idx + 1) * meshLength, ESplineCoordinateSpace::Type::Local);
 		pointTangentEnd = UKismetMathLibrary::ClampVectorSize(pointTangentEnd, 0.f, meshLength);
 
 		SplineMesh->SetStartAndEnd(pointLocationStart, pointTangentStart, pointLocationEnd, pointTangentEnd);
 		SplineMesh->SetCollisionEnabled(ECollisionEnabled::Type::QueryAndPhysics);
 		SplineMesh->SetupAttachment(RootComponent);
 		SplineMesh->RegisterComponent();
+		SplineMeshComponents.Add(SplineMesh);
 	}
 }
