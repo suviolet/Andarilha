@@ -36,12 +36,15 @@ AMovableActorBase::AMovableActorBase()
 	currentPointIdx = 0;
 	bIsMovingForward = true;
 
-	Curve = CreateDefaultSubobject<UCurveFloat>(TEXT("Curve"));
-	Curve->FloatCurve.Reset();
-	Curve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
-	Curve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
+	MovementCurve = CreateDefaultSubobject<UCurveFloat>(TEXT("MovementCurve"));
+	MovementCurve->FloatCurve.Reset();
+	MovementCurve->FloatCurve.UpdateOrAddKey(0.f, 0.f);
+	MovementCurve->FloatCurve.UpdateOrAddKey(1.f, 1.f);
 
-	speedMovement = 5;
+	DoorCurve = CreateDefaultSubobject<UCurveFloat>(TEXT("DoorCurve"));
+
+	movementSpeed = 5;
+	openCloseDoorSpeed = 1.5f;
 	TimelineMovementComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineMovementComp"));
 	TimelineDoorComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineDoorComp"));
 
@@ -55,12 +58,20 @@ void AMovableActorBase::BeginPlay()
 	numberOfSplinePoints = SplineActor->Spline->GetNumberOfSplinePoints();
 
 	TimelineMovingCallback.BindDynamic(this, &AMovableActorBase::MoveToPoint);
-	TimelineMovementComp->SetPlayRate(1 / speedMovement);
-	TimelineMovementComp->AddInterpFloat(Curve, TimelineMovingCallback);
+	TimelineMovingFinishedCallback.BindUFunction(this, "OpenDoor");
+	TimelineMovementComp->SetPlayRate(1 / movementSpeed);
+	TimelineMovementComp->AddInterpFloat(MovementCurve, TimelineMovingCallback);
+	TimelineMovementComp->SetTimelineFinishedFunc(TimelineMovingFinishedCallback);
+
+	float rightBounding = RightDoorMesh->GetStaticMesh()->GetBoundingBox().GetSize().GetAbs().X;
+	float leftBounding = LeftDoorMesh->GetStaticMesh()->GetBoundingBox().GetSize().GetAbs().X;
+	DoorCurve->FloatCurve.Reset();
+	DoorCurve->FloatCurve.UpdateOrAddKey(1.f, 0.f);
+	DoorCurve->FloatCurve.UpdateOrAddKey(0.f, rightBounding);
 
 	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::CloseDoor);
-	TimelineDoorComp->SetPlayRate(1 / speedMovement);
-	TimelineDoorComp->AddInterpFloat(Curve, TimelineOpenCloseDoorCallback);
+	TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed);
+	TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
 }
 
 void AMovableActorBase::MoveToPoint(float Alpha)
@@ -125,9 +136,13 @@ void AMovableActorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 {
 	Super::PostEditChangeProperty(e);
 	FName PropertyName = (e.Property != NULL) ? e.Property->GetFName() : NAME_None;
-	if (PropertyName == GET_MEMBER_NAME_CHECKED(AMovableActorBase, speedMovement))
+	if (PropertyName == GET_MEMBER_NAME_CHECKED(AMovableActorBase, movementSpeed))
 	{
-		TimelineMovementComp->SetPlayRate(1/speedMovement);
+		TimelineMovementComp->SetPlayRate(1 / movementSpeed);
+	}
+	if (PropertyName == GET_MEMBER_NAME_CHECKED(AMovableActorBase, openCloseDoorSpeed))
+	{
+		TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed);
 	}
 }
 #endif
@@ -138,27 +153,31 @@ void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp
 	{
 		if (OtherActor->ActorHasTag(FName("PCharacter")))
 		{
+			GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("AMovableActorBase::OnEntranceEndOverlap"));
 			float dotProduct = OtherActor->GetActorForwardVector() | EntranceDirectionArrow->GetForwardVector();
 			if (dotProduct > 0)
 			{
-				//CloseDoor();
-				GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("AMovableActorBase::OnEntranceEndOverlap"));
 				TimelineDoorComp->PlayFromStart();
+				// plays sound while closing door
 			}
 		}
 	}
 }
 
-void AMovableActorBase::OpenDoor(float Alpha)
+void AMovableActorBase::OpenDoor()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("AMovableActorBase::OpenDoor"));
-	// opens door
-	// plays sound while opening door
+	TimelineDoorComp->Reverse();
 }
 
 void AMovableActorBase::CloseDoor(float Alpha)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, TEXT("AMovableActorBase::CloseDoor"));
-	// closes door
-	// plays sound while closing door
+	FVector rLocation = RightDoorMesh->GetRelativeLocation();
+	FVector lLocation = LeftDoorMesh->GetRelativeLocation();
+
+	FVector rNewLocation = FVector(Alpha, rLocation.Y, rLocation.Z);
+	FVector lNewLocation = FVector(-Alpha, lLocation.Y, lLocation.Z);
+
+	RightDoorMesh->SetRelativeLocation(rNewLocation);
+	LeftDoorMesh->SetRelativeLocation(lNewLocation);
+
 }

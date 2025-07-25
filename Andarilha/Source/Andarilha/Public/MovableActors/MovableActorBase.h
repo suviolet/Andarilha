@@ -23,7 +23,7 @@ public:
 	void MoveToPoint(float Alpha);
 
 	UFUNCTION()
-	void OpenDoor(float Alpha);
+	void OpenDoor();
 
 	UFUNCTION()
 	void CloseDoor(float Alpha);
@@ -52,10 +52,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMeshComponent* Mesh;
 
-	UPROPERTY(EditAnywhere, Category = "LeftDoorMesh")
+	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMeshComponent* LeftDoorMesh;
 
-	UPROPERTY(EditAnywhere, Category = "RightDoorMesh")
+	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMeshComponent* RightDoorMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "EntranceDoorBox")
@@ -67,10 +67,16 @@ public:
 	USplineComponent* Spline;
 
 	UPROPERTY(EditAnywhere)
-	UCurveFloat* Curve;
+	UCurveFloat* MovementCurve;
 
-	UPROPERTY(EditAnywhere, Category = "SpeedMovement")
-	float speedMovement;
+	UPROPERTY(EditAnywhere)
+	UCurveFloat* DoorCurve;
+
+	UPROPERTY(EditAnywhere, Category = "Speed")
+	float movementSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Speed")
+	float openCloseDoorSpeed;
 
 	int32 currentPointIdx;
 
@@ -85,12 +91,14 @@ protected:
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TimelineMovementComp")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Timeline")
 	UTimelineComponent* TimelineMovementComp;
 
 	FOnTimelineFloat TimelineMovingCallback;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TimelineDoorComp")
+	FOnTimelineEventStatic TimelineMovingFinishedCallback;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Timeline")
 	UTimelineComponent* TimelineDoorComp;
 
 	FOnTimelineFloat TimelineOpenCloseDoorCallback;
