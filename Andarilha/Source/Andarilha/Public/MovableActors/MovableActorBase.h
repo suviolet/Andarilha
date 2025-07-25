@@ -26,7 +26,7 @@ public:
 	void OpenDoor();
 
 	UFUNCTION()
-	void CloseDoor(float Alpha);
+	void OpenCloseDoor(float Alpha);
 
 	UFUNCTION()
 	void OnMovableTriggered();
@@ -83,6 +83,8 @@ public:
 	int32 numberOfSplinePoints;
 
 	bool bIsMovingForward;
+
+	bool bIsDoorOpen;
 
 protected:
 	virtual void BeginPlay() override;

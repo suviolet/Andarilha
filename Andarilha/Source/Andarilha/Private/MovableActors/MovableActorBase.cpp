@@ -48,6 +48,8 @@ AMovableActorBase::AMovableActorBase()
 	TimelineMovementComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineMovementComp"));
 	TimelineDoorComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineDoorComp"));
 
+	bIsDoorOpen = true;
+
 }
 
 void AMovableActorBase::BeginPlay()
@@ -69,7 +71,7 @@ void AMovableActorBase::BeginPlay()
 	DoorCurve->FloatCurve.UpdateOrAddKey(1.f, 0.f);
 	DoorCurve->FloatCurve.UpdateOrAddKey(0.f, rightBounding);
 
-	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::CloseDoor);
+	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::OpenCloseDoor);
 	TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed);
 	TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
 }
@@ -89,13 +91,33 @@ void AMovableActorBase::MoveToPoint(float Alpha)
 void AMovableActorBase::OnMovableTriggered()
 {
 	//int32 destinyIdx = nullptr    // MAKE THIS call based on a destiny
-	if (bIsMovingForward)
+	if (bIsDoorOpen)
 	{
-		OnMoveNextTriggered();
+		TimelineDoorComp->PlayFromStart();
+		bIsDoorOpen = false;
+
+		if (bIsMovingForward)
+		{
+			FTimerHandle TimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMovableActorBase::OnMoveNextTriggered, 3.f);
+		}
+		else
+		{
+			FTimerHandle TimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMovableActorBase::OnMovePreviousTriggered, 3.f);
+		}
+
 	}
 	else
 	{
-		OnMovePreviousTriggered();
+		if (bIsMovingForward)
+		{
+			OnMoveNextTriggered();
+		}
+		else
+		{
+			OnMovePreviousTriggered();
+		}
 	}
 }
 
@@ -158,6 +180,7 @@ void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp
 			if (dotProduct > 0)
 			{
 				TimelineDoorComp->PlayFromStart();
+				bIsDoorOpen = false;
 				// plays sound while closing door
 			}
 		}
@@ -167,9 +190,10 @@ void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp
 void AMovableActorBase::OpenDoor()
 {
 	TimelineDoorComp->Reverse();
+	bIsDoorOpen = true;
 }
 
-void AMovableActorBase::CloseDoor(float Alpha)
+void AMovableActorBase::OpenCloseDoor(float Alpha)
 {
 	FVector rLocation = RightDoorMesh->GetRelativeLocation();
 	FVector lLocation = LeftDoorMesh->GetRelativeLocation();
