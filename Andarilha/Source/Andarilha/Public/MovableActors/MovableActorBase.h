@@ -40,6 +40,9 @@ public:
 	UFUNCTION()
 	void OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	UFUNCTION()
+	void PlayOpenCloseDoorSfx(USoundBase* Sfx);
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UArrowComponent* MovingDirectionArrow;
 
@@ -57,6 +60,15 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UStaticMeshComponent* RightDoorMesh;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	USoundBase* OpenDoorSfx;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	USoundBase* CloseDoorSfx;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	USoundBase* MovingSfx;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "EntranceDoorBox")
 	UBoxComponent* EntranceDoorBox;

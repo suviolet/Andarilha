@@ -1,5 +1,6 @@
 #include "MovableActors/MovableActorBase.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AMovableActorBase::AMovableActorBase()
 {
@@ -44,7 +45,7 @@ AMovableActorBase::AMovableActorBase()
 	DoorCurve = CreateDefaultSubobject<UCurveFloat>(TEXT("DoorCurve"));
 
 	movementSpeed = 5;
-	openCloseDoorSpeed = 1.5f;
+	openCloseDoorSpeed = 1.5f; // Important to take into account OpenCloseDoorSfx time
 	TimelineMovementComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineMovementComp"));
 	TimelineDoorComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineDoorComp"));
 
@@ -72,7 +73,7 @@ void AMovableActorBase::BeginPlay()
 	DoorCurve->FloatCurve.UpdateOrAddKey(0.f, rightBounding);
 
 	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::OpenCloseDoor);
-	TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed);
+	TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed); // maybe this line become useless
 	TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
 }
 
@@ -88,23 +89,28 @@ void AMovableActorBase::MoveToPoint(float Alpha)
 	this->RootComponent->SetWorldLocationAndRotation(newLocation, newRotation);
 }
 
+// improve this function
 void AMovableActorBase::OnMovableTriggered()
 {
 	//int32 destinyIdx = nullptr    // MAKE THIS call based on a destiny
-	if (bIsDoorOpen)
+	if (bIsDoorOpen) // I have this if/else to play the movement after the door being closed ...
 	{
+		if (CloseDoorSfx != nullptr)
+		{
+			PlayOpenCloseDoorSfx(CloseDoorSfx);
+		}
 		TimelineDoorComp->PlayFromStart();
 		bIsDoorOpen = false;
 
+		FTimerHandle TimerHandle;
+		float delayTime = CloseDoorSfx != nullptr ? CloseDoorSfx->GetDuration() : openCloseDoorSpeed;
 		if (bIsMovingForward)
 		{
-			FTimerHandle TimerHandle;
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMovableActorBase::OnMoveNextTriggered, 3.f);
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMovableActorBase::OnMoveNextTriggered, delayTime);
 		}
 		else
 		{
-			FTimerHandle TimerHandle;
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMovableActorBase::OnMovePreviousTriggered, 3.f);
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMovableActorBase::OnMovePreviousTriggered, delayTime);
 		}
 
 	}
@@ -162,10 +168,6 @@ void AMovableActorBase::PostEditChangeProperty(struct FPropertyChangedEvent& e)
 	{
 		TimelineMovementComp->SetPlayRate(1 / movementSpeed);
 	}
-	if (PropertyName == GET_MEMBER_NAME_CHECKED(AMovableActorBase, openCloseDoorSpeed))
-	{
-		TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed);
-	}
 }
 #endif
 
@@ -179,9 +181,12 @@ void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp
 			float dotProduct = OtherActor->GetActorForwardVector() | EntranceDirectionArrow->GetForwardVector();
 			if (dotProduct > 0)
 			{
+				if (CloseDoorSfx != nullptr)
+				{
+					PlayOpenCloseDoorSfx(CloseDoorSfx);
+				}
 				TimelineDoorComp->PlayFromStart();
 				bIsDoorOpen = false;
-				// plays sound while closing door
 			}
 		}
 	}
@@ -189,6 +194,10 @@ void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp
 
 void AMovableActorBase::OpenDoor()
 {
+	if (OpenDoorSfx != nullptr)
+	{
+		PlayOpenCloseDoorSfx(OpenDoorSfx);
+	}
 	TimelineDoorComp->Reverse();
 	bIsDoorOpen = true;
 }
@@ -204,4 +213,14 @@ void AMovableActorBase::OpenCloseDoor(float Alpha)
 	RightDoorMesh->SetRelativeLocation(rNewLocation);
 	LeftDoorMesh->SetRelativeLocation(lNewLocation);
 
+}
+
+void AMovableActorBase::PlayOpenCloseDoorSfx(USoundBase* Sfx)
+{
+	if (Sfx != nullptr)
+	{
+		UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::PlayOpenCloseDoorSfx SoundName: %s , Duration: %f"), *Sfx->GetName(), Sfx->GetDuration());
+		TimelineDoorComp->SetPlayRate(1 / Sfx->GetDuration()); // Forces the Open/Close movement follow the same SoundRate
+		UGameplayStatics::PlaySound2D(this, Sfx);
+	}
 }
