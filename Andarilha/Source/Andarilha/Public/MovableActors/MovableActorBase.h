@@ -70,6 +70,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Sound")
 	USoundBase* MovingSfx;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	UAudioComponent* SfxComponent;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	float startTime;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "EntranceDoorBox")
 	UBoxComponent* EntranceDoorBox;
 

@@ -1,5 +1,6 @@
 #include "MovableActors/MovableActorBase.h"
 #include "Components/BoxComponent.h"
+#include "Components/AudioComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 AMovableActorBase::AMovableActorBase()
@@ -11,6 +12,10 @@ AMovableActorBase::AMovableActorBase()
 
 	MovingDirectionArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("MovingDirectionArrow"));
 	MovingDirectionArrow->SetupAttachment(RootComponent);
+
+	SfxComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("SfxComponent"));
+	SfxComponent->SetupAttachment(RootComponent);
+	startTime = 0.f;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetCollisionProfileName(FName("BlockAll"), false);
@@ -75,6 +80,11 @@ void AMovableActorBase::BeginPlay()
 	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::OpenCloseDoor);
 	TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed); // maybe this line become useless
 	TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
+
+	if (MovingSfx != nullptr)
+	{
+		SfxComponent->SetSound(MovingSfx);
+	}
 }
 
 void AMovableActorBase::MoveToPoint(float Alpha)
@@ -140,6 +150,12 @@ void AMovableActorBase::OnMoveNextTriggered()
 		bIsMovingForward = false;
 		OnMovePreviousTriggered();
 	}
+
+	UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::OnMoveNextTriggered SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
+	if (SfxComponent->GetSound() != nullptr)
+	{
+		SfxComponent->Play(startTime);
+	}
 	TimelineMovementComp->PlayFromStart();
 }
 
@@ -155,6 +171,12 @@ void AMovableActorBase::OnMovePreviousTriggered()
 	{
 		bIsMovingForward = true;
 		OnMoveNextTriggered();
+	}
+
+	UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::OnMovePreviousTriggered SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
+	if (SfxComponent->GetSound() != nullptr)
+	{
+		SfxComponent->Play(startTime);
 	}
 	TimelineMovementComp->PlayFromStart();
 }
@@ -194,6 +216,11 @@ void AMovableActorBase::OnEntranceEndOverlap(UPrimitiveComponent* OverlappedComp
 
 void AMovableActorBase::OpenDoor()
 {
+	if (SfxComponent->GetSound() != nullptr)
+	{
+		SfxComponent->Stop();
+	}
+
 	if (OpenDoorSfx != nullptr)
 	{
 		PlayOpenCloseDoorSfx(OpenDoorSfx);
