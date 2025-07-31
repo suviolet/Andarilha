@@ -71,15 +71,20 @@ void AMovableActorBase::BeginPlay()
 	TimelineMovementComp->AddInterpFloat(MovementCurve, TimelineMovingCallback);
 	TimelineMovementComp->SetTimelineFinishedFunc(TimelineMovingFinishedCallback);
 
-	float rightBounding = RightDoorMesh->GetStaticMesh()->GetBoundingBox().GetSize().GetAbs().X;
-	float leftBounding = LeftDoorMesh->GetStaticMesh()->GetBoundingBox().GetSize().GetAbs().X;
-	DoorCurve->FloatCurve.Reset();
-	DoorCurve->FloatCurve.UpdateOrAddKey(1.f, 0.f);
-	DoorCurve->FloatCurve.UpdateOrAddKey(0.f, rightBounding);
+	UStaticMesh* rMesh = RightDoorMesh->GetStaticMesh();
+	UStaticMesh* lMesh = LeftDoorMesh->GetStaticMesh();
+	if ((rMesh != nullptr || lMesh != nullptr))
+	{
+		float rightBounding = rMesh->GetBoundingBox().GetSize().GetAbs().X;
+		float leftBounding = lMesh->GetBoundingBox().GetSize().GetAbs().X;
+		DoorCurve->FloatCurve.Reset();
+		DoorCurve->FloatCurve.UpdateOrAddKey(1.f, 0.f);
+		DoorCurve->FloatCurve.UpdateOrAddKey(0.f, rightBounding);
 
-	TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::OpenCloseDoor);
-	TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed); // maybe this line become useless
-	TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
+		TimelineOpenCloseDoorCallback.BindDynamic(this, &AMovableActorBase::OpenCloseDoor);
+		TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed); // maybe this line become useless
+		TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
+	}
 
 	if (MovingSfx != nullptr)
 	{
@@ -151,9 +156,9 @@ void AMovableActorBase::OnMoveNextTriggered()
 		OnMovePreviousTriggered();
 	}
 
-	UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::OnMoveNextTriggered SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
 	if (SfxComponent->GetSound() != nullptr)
 	{
+		UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::OnMoveNextTriggered SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
 		SfxComponent->Play(startTime);
 	}
 	TimelineMovementComp->PlayFromStart();
@@ -173,9 +178,9 @@ void AMovableActorBase::OnMovePreviousTriggered()
 		OnMoveNextTriggered();
 	}
 
-	UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::OnMovePreviousTriggered SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
 	if (SfxComponent->GetSound() != nullptr)
 	{
+		UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::OnMovePreviousTriggered SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
 		SfxComponent->Play(startTime);
 	}
 	TimelineMovementComp->PlayFromStart();
