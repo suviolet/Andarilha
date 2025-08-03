@@ -156,14 +156,13 @@ void AMovableActorBase::OnMovePreviousTriggered()
 
 void AMovableActorBase::MoveToPoint(float Alpha)
 {
-	FRotator ArrowRotation = MovingDirectionArrow->GetRelativeRotation();
+	FRotator ActorRotation = this->RootComponent->GetRelativeRotation();
 	FTransform start = Spline->GetTransformAtSplinePoint(CurrenctLocation.InputKey, ESplineCoordinateSpace::World);
 	FTransform end = Spline->GetTransformAtSplinePoint(NextLocation.InputKey, ESplineCoordinateSpace::World);
 
 	FVector newLocation = UKismetMathLibrary::VLerp(start.GetLocation(), end.GetLocation(), Alpha);
-	FRotator newRotation = UKismetMathLibrary::RLerp(start.Rotator() + ArrowRotation, end.Rotator() + ArrowRotation, Alpha, true);
 
-	this->RootComponent->SetWorldLocationAndRotation(newLocation, newRotation);
+	this->RootComponent->SetWorldLocationAndRotation(newLocation, ActorRotation);
 }
 
 #if WITH_EDITOR

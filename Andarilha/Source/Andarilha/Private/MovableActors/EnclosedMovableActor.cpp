@@ -1,6 +1,7 @@
 #include "MovableActors/EnclosedMovableActor.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Components/AudioComponent.h"
 
 AEnclosedMovableActor::AEnclosedMovableActor()
@@ -31,6 +32,8 @@ AEnclosedMovableActor::AEnclosedMovableActor()
 	TimelineDoorComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineDoorComp"));
 
 	bIsDoorOpen = true;
+
+	bCanRotate = true;
 }
 
 void AEnclosedMovableActor::BeginPlay()
@@ -53,6 +56,25 @@ void AEnclosedMovableActor::BeginPlay()
 		TimelineOpenCloseDoorCallback.BindDynamic(this, &AEnclosedMovableActor::OpenCloseDoor);
 		TimelineDoorComp->SetPlayRate(1 / openCloseDoorSpeed);
 		TimelineDoorComp->AddInterpFloat(DoorCurve, TimelineOpenCloseDoorCallback);
+	}
+}
+
+void AEnclosedMovableActor::MoveToPoint(float Alpha)
+{
+	if (!bCanRotate)
+	{
+		Super::MoveToPoint(Alpha);
+	}
+	else
+	{
+		FRotator ArrowRotation = MovingDirectionArrow->GetRelativeRotation();
+		FTransform start = Spline->GetTransformAtSplinePoint(CurrenctLocation.InputKey, ESplineCoordinateSpace::World);
+		FTransform end = Spline->GetTransformAtSplinePoint(NextLocation.InputKey, ESplineCoordinateSpace::World);
+
+		FVector newLocation = UKismetMathLibrary::VLerp(start.GetLocation(), end.GetLocation(), Alpha);
+		FRotator newRotation = UKismetMathLibrary::RLerp(start.Rotator() + ArrowRotation, end.Rotator() + ArrowRotation, Alpha, true);
+
+		this->RootComponent->SetWorldLocationAndRotation(newLocation, newRotation);
 	}
 }
 

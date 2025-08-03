@@ -27,6 +27,8 @@ public:
 	UFUNCTION()
 	void PlayOpenCloseDoorSfx(USoundBase* Sfx);
 
+	virtual void MoveToPoint(float Alpha) override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UArrowComponent* EntranceDirectionArrow;
 
@@ -51,7 +53,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Speed")
 	float openCloseDoorSpeed;
 
+	UPROPERTY(EditAnywhere, Category = "Rotation")
+	bool bCanRotate;
+
 	bool bIsDoorOpen;
+
 
 protected:
 	virtual void BeginPlay() override;

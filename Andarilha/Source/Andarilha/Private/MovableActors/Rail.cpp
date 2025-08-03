@@ -14,6 +14,8 @@ void ARail::BeginPlay()
 void ARail::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
+	SplineMeshComponents.Empty();
+
 	float meshLength = FVector(Mesh->GetBoundingBox().Min.GetAbs() + Mesh->GetBoundingBox().Max.GetAbs()).Y;
 	float meshQty = trunc(Spline->GetSplineLength() / meshLength);
 
@@ -31,7 +33,9 @@ void ARail::OnConstruction(const FTransform& Transform)
 		SplineMesh->SetMobility(EComponentMobility::Static);
 		//SplineMesh->SetSplineUpDir(FVector(0.f, 1.f, 0.f));
 		//SplineMesh->SetSplineUpDir(Spline->GetUpVectorAtDistanceAlongSpline( ((idx * meshLength) + meshLength) / 2, ESplineCoordinateSpace::Type::World));
-		SplineMesh->SetSplineUpDir(Spline->GetRightVectorAtDistanceAlongSpline(((idx * meshLength) + meshLength) / 2, ESplineCoordinateSpace::Type::Local));
+		FVector rightVectorAtDistance = Spline->GetRightVectorAtDistanceAlongSpline(((idx * meshLength) + meshLength) / 2, ESplineCoordinateSpace::Type::Local);
+		//SplineMesh->SetSplineUpDir(rightVectorAtDistance * FVector(0.f, 1.f, 0.f));
+		SplineMesh->SetSplineUpDir(rightVectorAtDistance);
 		//SplineMesh->SetSplineUpDir(Spline->GetForwardVector());
 		SplineMesh->SetCastShadow(false);
 

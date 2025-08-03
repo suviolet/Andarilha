@@ -21,7 +21,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-	void MoveToPoint(float Alpha);
+	virtual void MoveToPoint(float Alpha);
 
 	UFUNCTION()
 	virtual void OnMovableTriggered();
