@@ -1,57 +1,33 @@
-------------
-TO DO - JULY
-------------
+--------------
+TO DO - AUGUST
+--------------
 
 -----------------------------------------------------------------
 - GDD 
 + 
+- Level 1 - Section 1 - Train
+	--> Replace Elevator and Train
 
-- Level 2 - Office 1
+- Level 1 - Section 2 - City Hall
+	--> Add randomness to the level
+	--> Populate Library
+	--> Populate Coffee Shop
+	--> Replace Elevator
+
+- Level 1 - Section 3 - Mayor's Office
+	--> Add randomness to the level
+	--> Populate rooms following design - safe and key lock
+
+- Level 1 - Section 4 - Tosco Office
 	--> Add light between movable wall and wall button - portal ref
 	--> Get TR-ref gym level and include
-		-> Add door delay time - open/close?
+	--> Add door delay time - open/close ***
+			TR reference
+	--> Improve TO BE CONTINUED level - Guardbot patrolling, Movable Platforms in place in loop
+
+- Level 1 - Section 5 - End (?)
 
 -----------------------------------------------------------------
-
---------------
----- JUICY ---
---------------
-
-- Stamina System
--- UI elements - TBD
--- Run consume and when not running recharge %/s - TBD
--- Consume collectables to manipulate stamina values - TBD
-
-- Importing and executing SFXs on respective owners and moments
-	- SFX (X Xth)
-		1-- Elevator Ambience Song - needs implementation only - Thursday 17th
-		2-- Elevator Moving Sound
-		3-- Train Moving Sound
-	  4-- Train/Elevator Doors Opening
-	  5-- Train/Elevator Doors Closing
-		6-- GuardBot Chasing
-		7-- GuardBot Shooting Laser
-	  8-- Footsteps adjust/handle randomness https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
-
-- Lights Kill Player - Trap
--- delay between to activate/deactivate mesh(no collision) and modify trigger.
--- material light shader (emissive + translucency) or particle - study viability
--- https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/Particles/Beam?application_version=5.6
-
-- Meshes
-	-- Safer
-	-- TV / Monitor
-	-- Propagandas
-		--- Wall Banner
-		--- Screens/Monitors/TV/LapTops
-		--- BillBoard
-	-- Eye
-	-- Train Door
-	-- Elevator Door
-	-- Receptionist
-
------------------------------------------------------------------
-
 --
 UI
 --
@@ -76,22 +52,66 @@ UI
 
 - Credits
 
+
+-----------------------------------------------------------------
+Backlog Urgent
+- Movable object such as wall and platform don't need to have doors. Change it on the code.* TO VALIDATE
+
+- Redo collision for
+	- SM_Walls_Office1_CorridorWall
+	- SM_Walls_Office1_CorridorWallWithDoor
+
+
+-----------------------------------------------------------------
+--------------
+---- JUICY ---
+--------------
+
+- Meshes
+	-- Andarilha
+	-- Mayor
+	-- Receptionist
+	-- Safer
+	-- TV / Monitors
+	-- Propagandas
+		--- Wall Banner
+		--- Screens/Monitors/TV/LapTops
+		--- BillBoard
+	-- Eye
+
+- Stamina System
+-- UI elements - TBD
+-- Run consume and when not running recharge %/s - TBD
+-- Consume collectables to manipulate stamina values - TBD
+
+- Importing and executing SFXs on respective owners and moments
+	- SFX (X Xth)
+		-- GuardBot Chasing
+		-- GuardBot Shooting Laser
+	  -- Footsteps adjust/handle randomness + volume https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
+
+- Lights Kill Player - Trap
+-- delay between to activate/deactivate mesh(no collision) and modify trigger.
+-- material light shader (emissive + translucency) or particle - study viability
+-- https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/Particles/Beam?application_version=5.6
+
+
 -----------------------------------------------------------------
 
 - Enemy 
-	- Attacking
 	- Patrolling
+	- Attacking
+
 
 - OpenDoorEvent 
-	-- Train - sliding
-	-- Elevator - double sliding
 	-- Safer
 
 --------------
 ---- JUICY ---
 --------------
 
-- Presentation Pitch July 21st - Friday 18th
+- Work on presentation, August 7th
+- Presentation Pitch, August 11th
 
 
 ------
@@ -155,6 +175,10 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 
 ---- BACKLOG ---
+- Timeline?
+- VFX?
+- 
+
 
 - Level Streaming / Orchestration (archiEnemy) - c++
 https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-cplusplus-in-unreal-engine
@@ -194,3 +218,10 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Geometry
 -- Toon Shader
 GDC
 https://www.youtube.com/watch?v=gdBACyIOCtc
+
+
+
+
+
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/fbx-static-mesh-pipeline-in-unreal-engine
