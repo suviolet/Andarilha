@@ -29,6 +29,7 @@ ADoorBase::ADoorBase()
 	TimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("TimelineComponent"));
 	
 	bIsOpen = false;
+	DoorClosesAfterTime = 0.f;
 	//bIsReady = true;
 }
 
@@ -119,6 +120,11 @@ void ADoorBase::Open()
 	if (TimelineComp != NULL)
 	{
 		TimelineComp->Play();
+	}
+	if (DoorClosesAfterTime > 0 && DoorClosesAfterTime > OpeningTime)
+	{
+		FTimerHandle TimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ADoorBase::Close, DoorClosesAfterTime);
 	}
 }
 

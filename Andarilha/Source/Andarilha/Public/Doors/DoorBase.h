@@ -45,6 +45,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "OpeningTime")
 	float OpeningTime;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DoorClosesAfterTime")
+	int DoorClosesAfterTime;
+
 	bool bIsOpen;
 
 protected:
