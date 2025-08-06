@@ -17,7 +17,10 @@ void USaveSystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AActor* OwnerActor = GetOwner();
+	OwnerActor = GetOwner();
+
+	currentWorld = this->GetWorld();
+
 	PlayerCharacter = Cast<APCharacter>(OwnerActor);
 	CurrentSaveGame = CastChecked<USlotSaveGame>(UGameplayStatics::CreateSaveGameObject(USlotSaveGame::StaticClass()));
 }
@@ -31,7 +34,7 @@ bool USaveSystemComponent::FirstSave()
 
 	CurrentSaveGame->Data.Levels.Empty();
 	TArray<FString> levelsToLoad = { "CityHall", "WalledBuildings", "Downtown" };
-	const TArray<ULevelStreaming*>& streamedLevels = GetWorld()->GetStreamingLevels();
+	const TArray<ULevelStreaming*>& streamedLevels = currentWorld->GetStreamingLevels();
 
 	for (FString levelToLoad : levelsToLoad)
 	{
@@ -64,7 +67,7 @@ bool USaveSystemComponent::Save()
 		CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
 
 		CurrentSaveGame->Data.Levels.Empty();
-		const TArray<ULevelStreaming*>& streamedLevels = GetWorld()->GetStreamingLevels();
+		const TArray<ULevelStreaming*>& streamedLevels = currentWorld->GetStreamingLevels();
 
 		for (ULevelStreaming* streamedLevel : streamedLevels)
 		{
@@ -105,6 +108,7 @@ bool USaveSystemComponent::Load()
 		{
 			FLatentActionInfo info;
 			info.UUID = UUID;
+			UE_LOG(LogTemp, Warning, TEXT(" USaveSystemComponent::Load  Level  %s"), *level.ToString());
 			UGameplayStatics::LoadStreamLevel(this, level, true, true, info);
 			UUID++;
 		}

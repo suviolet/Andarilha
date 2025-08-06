@@ -20,6 +20,8 @@ public:
 
 	UUserWidget* savingWidget;
 
+	UWorld* currentWorld;
+
 protected:
 	virtual void BeginPlay() override;
 

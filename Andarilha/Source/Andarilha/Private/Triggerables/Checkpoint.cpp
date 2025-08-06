@@ -11,7 +11,10 @@ ACheckpoint::ACheckpoint()
 void ACheckpoint::BeginPlay()
 {
 	Super::BeginPlay();
-	if (SaveWidgetClass != nullptr)
+
+	currentWorld = this->GetWorld();
+
+	if (IsValid(SaveWidgetClass))
 	{
 		savingWidget = CreateWidget<UUserWidget>(UGameplayStatics::GetPlayerController(this, 0), SaveWidgetClass);
 	}
@@ -23,16 +26,19 @@ void ACheckpoint::SaveGame(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 	{
 		if (APCharacter* PCharacter = Cast<APCharacter>(OtherActor))
 		{
-			if (!bHasBeenTriggered && savingWidget != nullptr)
+			if (!bHasBeenTriggered && IsValid(savingWidget))
 			{
 				bHasBeenTriggered = true;
 				savingWidget->AddToViewport();
 
 				if (PCharacter != nullptr)
+				//if (IsValid(PCharacter))
 				{
-					UWorld* currentWorld = this->GetWorld();
+
 					if (currentWorld != nullptr)
+					//if (IsValid(currentWorld))
 					{
+
 						UE_LOG(LogTemp, Warning, TEXT(" PCharacter->GetWorld  "));
 						PCharacter->SaveSystemComponent->Save();
 						FTimerHandle TimerHandle;

@@ -39,6 +39,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FName CurrentLevel;
 
+	AActor* OwnerActor;
+
+	UWorld* currentWorld;
+
 protected:
 	virtual void BeginPlay() override;
 
