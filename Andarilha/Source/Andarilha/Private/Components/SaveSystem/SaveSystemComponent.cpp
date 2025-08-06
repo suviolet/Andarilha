@@ -9,6 +9,7 @@ USaveSystemComponent::USaveSystemComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 
 	SaveSlotName = TEXT("SaveGame00");
+	UUID = 0;
 }
 
 
@@ -18,64 +19,103 @@ void USaveSystemComponent::BeginPlay()
 
 	AActor* OwnerActor = GetOwner();
 	PlayerCharacter = Cast<APCharacter>(OwnerActor);
+	CurrentSaveGame = CastChecked<USlotSaveGame>(UGameplayStatics::CreateSaveGameObject(USlotSaveGame::StaticClass()));
+}
+
+bool USaveSystemComponent::FirstSave()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT(" USaveSystemComponent::FirstSave! "));
+	CleanSlot();
+
+	CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
+
+	CurrentSaveGame->Data.Levels.Empty();
+	TArray<FString> levelsToLoad = { "CityHall", "WalledBuildings", "Downtown" };
+	const TArray<ULevelStreaming*>& streamedLevels = GetWorld()->GetStreamingLevels();
+
+	for (FString levelToLoad : levelsToLoad)
+	{
+		for (ULevelStreaming* streamedLevel : streamedLevels)
+		{
+			FString packageName = streamedLevel->GetWorldAssetPackageName();
+			if (packageName.EndsWith(levelToLoad))
+			{
+				CurrentSaveGame->Data.Levels.Add(FName(packageName));
+
+				FLatentActionInfo info;
+				info.UUID = UUID;
+				UGameplayStatics::LoadStreamLevel(this, FName(packageName), true, true, info);
+				UUID++;
+			}
+		}
+	}
+
+	// Save Inventory?
+
+	return UGameplayStatics::SaveGameToSlot(CurrentSaveGame, SaveSlotName, 0);
+}
+
+bool USaveSystemComponent::Save()
+{
+	UE_LOG(LogTemp, Warning, TEXT(" USaveSystemComponent::Save"));
 
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT(" It has a Save at BegingPlay! "));
-		CurrentSaveGame = Cast<USlotSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0));
+		CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
 
-		//PlayerCharacter->SetActorTransform(CurrentSaveGame->Data.ActorTransform);
-		//PlayerCharacter->Controller.transfo
-		// Load Level?
-		// Load Inventory?
+		CurrentSaveGame->Data.Levels.Empty();
+		const TArray<ULevelStreaming*>& streamedLevels = GetWorld()->GetStreamingLevels();
+
+		for (ULevelStreaming* streamedLevel : streamedLevels)
+		{
+			if (
+				streamedLevel->GetLevelStreamingStatus() == EStreamingStatus::LEVEL_Loaded || 
+				streamedLevel->GetLevelStreamingStatus() == EStreamingStatus::LEVEL_Visible
+			)
+			{
+				FString packageName = streamedLevel->GetWorldAssetPackageName();
+				CurrentSaveGame->Data.Levels.Add(FName(packageName));
+				UE_LOG(LogTemp, Warning, TEXT("Saved Level   : %s"), *packageName);
+			}
+		}
+
+		// Save Inventory?
+
+		return UGameplayStatics::SaveGameToSlot(CurrentSaveGame, SaveSlotName, 0);
 	}
 	else
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT(" Create first Save ! "));
-		CurrentSaveGame = CastChecked<USlotSaveGame>(UGameplayStatics::CreateSaveGameObject(USlotSaveGame::StaticClass()));
-
-		CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
-		CurrentSaveGame->Data.Level = CurrentLevel;   
-		// Save Inventory?
-
-		UGameplayStatics::SaveGameToSlot(CurrentSaveGame, SaveSlotName, 0);
+		UE_LOG(LogTemp, Warning, TEXT(" USaveSystemComponent::Save Calling FirstSave()! "));
+		return FirstSave();
 	}
 }
 
-// I wanna call Save regardless this InputActions arg...
-void USaveSystemComponent::Save(const FInputActionValue& Value)
+bool USaveSystemComponent::Load()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, TEXT(" Save ! "));
-
+	UE_LOG(LogTemp, Warning, TEXT(" USaveSystemComponent::Load"));
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
 	{
-		CurrentSaveGame->Data.ActorTransform = PlayerCharacter->GetActorTransform();
-		CurrentSaveGame->Data.Level = CurrentLevel;
-		// Save Inventory?
 
-		UGameplayStatics::SaveGameToSlot(CurrentSaveGame, SaveSlotName, 0);
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT(" Doesn't have a previous save! "));
-	}
+		USaveGame* saveGame = UGameplayStatics::LoadGameFromSlot(SaveSlotName, 0);
+		CurrentSaveGame = CastChecked<USlotSaveGame>(saveGame);
 
-}
-
-// I wanna call Load regardless this InputActions arg...
-void USaveSystemComponent::Load(const FInputActionValue& Value)
-{
-	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, TEXT(" Load ! "));
-
-	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
-	{
-		FLatentActionInfo LatentInfo;
-		UGameplayStatics::LoadStreamLevel(this, CurrentSaveGame->Data.Level, true, false, LatentInfo);
 		PlayerCharacter->SetActorTransform(CurrentSaveGame->Data.ActorTransform);
+
+		for (FName level : CurrentSaveGame->Data.Levels)
+		{
+			FLatentActionInfo info;
+			info.UUID = UUID;
+			UGameplayStatics::LoadStreamLevel(this, level, true, true, info);
+			UUID++;
+		}
+		// Load Inventory
+
+		return true;
 	}
 	else
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT(" Doesn't have a previous save TO LOAD! "));
+		UE_LOG(LogTemp, Warning, TEXT("USaveSystemComponent::Load Doesn't have a previous save TO LOAD! "));
+		return false;
 	}
 }
 

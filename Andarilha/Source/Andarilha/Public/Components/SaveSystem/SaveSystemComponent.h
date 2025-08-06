@@ -16,10 +16,16 @@ class ANDARILHA_API USaveSystemComponent : public UActorComponent
 public:
 	USaveSystemComponent();
 
-	void Save(const FInputActionValue& Value);
+	UFUNCTION(BlueprintCallable)
+	bool FirstSave();
 
-	void Load(const FInputActionValue& Value);
+	UFUNCTION(BlueprintCallable)
+	bool Save();
 
+	UFUNCTION(BlueprintCallable)
+	bool Load();
+
+	UFUNCTION(BlueprintCallable)
 	void CleanSlot();
 
 	APCharacter* PlayerCharacter;
@@ -36,4 +42,5 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	int UUID;
 };

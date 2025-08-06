@@ -174,4 +174,10 @@ protected:
 	UFUNCTION()
 	void ExitGame(const FInputActionValue& Value);
 
+	UFUNCTION()
+	void LoadGame(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void SaveGame(const FInputActionValue& Value);
+
 };

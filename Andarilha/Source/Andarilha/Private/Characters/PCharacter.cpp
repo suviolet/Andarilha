@@ -277,11 +277,21 @@ void APCharacter::RestartLastSave()
 {
 	isAlive = true;
 	UWidgetLayoutLibrary::RemoveAllWidgets(this);
-	SaveSystemComponent->Load(FInputActionValue());
+	SaveSystemComponent->Load();
 	PlayerController->PlayerCameraManager->StopCameraFade();
 
 	UInventoryWidget* inventoryWidget = InventoryComponent->widget;
 	inventoryWidget->AddToViewport();
+}
+
+void APCharacter::LoadGame(const FInputActionValue& Value)
+{
+	SaveSystemComponent->Load();
+}
+
+void APCharacter::SaveGame(const FInputActionValue& Value)
+{
+	SaveSystemComponent->Save();
 }
 
 void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -316,8 +326,8 @@ void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		////
 
 		//// Menu elements
-		Input->BindAction(SaveAction, ETriggerEvent::Started, SaveSystemComponent, &USaveSystemComponent::Save);
-		Input->BindAction(LoadAction, ETriggerEvent::Started, SaveSystemComponent, &USaveSystemComponent::Load);
+		Input->BindAction(SaveAction, ETriggerEvent::Started, this, &APCharacter::SaveGame);
+		Input->BindAction(LoadAction, ETriggerEvent::Started, this, &APCharacter::LoadGame);
 
 		Input->BindAction(ExitGameAction, ETriggerEvent::Started, this, &APCharacter::ExitGame);
 		////
