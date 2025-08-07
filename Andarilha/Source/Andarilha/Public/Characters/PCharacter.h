@@ -6,6 +6,7 @@
 #include "Interactables/InteractableBase.h"
 #include "Components/Inventory/InventoryComponent.h"
 #include "Components/SaveSystem/SaveSystemComponent.h"
+#include "Components/Stamina/StaminaComponent.h"
 #include "PCharacter.generated.h"
 
 class UAnimMontage;
@@ -44,8 +45,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory Component")
 	UInventoryComponent* InventoryComponent;
 
-	 UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "SaveSystem Component")
-	 USaveSystemComponent* SaveSystemComponent;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "SaveSystem Component")
+	USaveSystemComponent* SaveSystemComponent;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stamina Component")
+	UStaminaComponent* StaminaComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	USpringArmComponent* SpringArm;
@@ -68,9 +72,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool isAlive;
 
-	bool isCrouching;
-	bool isRunning;
-	bool isTurnLocked;
+	bool isCrouching; // add b
+	bool isRunning;  // add b
+	bool bCanRun;
+	bool isTurnLocked;  // add b
 
 private:
 

@@ -19,7 +19,7 @@ void USaveSystemComponent::BeginPlay()
 
 	OwnerActor = GetOwner();
 
-	currentWorld = this->GetWorld();
+	currentWorld = GetWorld();
 
 	PlayerCharacter = Cast<APCharacter>(OwnerActor);
 	CurrentSaveGame = CastChecked<USlotSaveGame>(UGameplayStatics::CreateSaveGameObject(USlotSaveGame::StaticClass()));

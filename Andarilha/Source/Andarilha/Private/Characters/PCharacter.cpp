@@ -50,6 +50,9 @@ APCharacter::APCharacter()
 	SaveSystemComponent = CreateDefaultSubobject<USaveSystemComponent>(TEXT("SaveSystem Component"));
 	this->AddOwnedComponent(SaveSystemComponent);
 
+	StaminaComponent = CreateDefaultSubobject<UStaminaComponent>(TEXT("Stamina Component"));
+	this->AddOwnedComponent(StaminaComponent);
+
 	traceObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldDynamic));
 
 	ignoreActors.Add(GetOwner());
@@ -59,6 +62,7 @@ APCharacter::APCharacter()
 	isAlive = true;
 	isCrouching = false;
 	isRunning = false;
+	bCanRun = true;
 	isTurnLocked = false;
 
 	Tags.Add(FName("PCharacter"));
@@ -187,13 +191,16 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 	if (isAlive)
 	{
 		isRunning = Value.Get<bool>();
-		if (isRunning) {
+		if (isRunning and bCanRun) {
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("isRunning"));
 			MovementComponent->MaxWalkSpeed = 600.0f;
+			//StaminaComponent->DecreaseStamina();
 		}
-		else {
+		else
+		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("! isRunning"));
 			MovementComponent->MaxWalkSpeed = 300.0f;
+			//StaminaComponent->RecoverStamina();
 		}
 	}
 }
