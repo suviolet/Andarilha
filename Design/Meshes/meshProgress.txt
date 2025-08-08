@@ -4,6 +4,7 @@ Mesh + UBX
 -> Structures
 Cable Emissive 
 Light Emissive
+
 TrainDoorLeft (remove in engine collider)
 TrainDoorRight (remove in engine collider)
 Elevator
@@ -12,19 +13,8 @@ ElevatorDoorRight (remove in engine collider)
 
 -----
 
--> ArchitecturesOffice
-Office1_CorridorWall
-Office1_CorridorWallWithDoor
-Door + DoorFrame (Door + Frame)- Normal Door
-ElevatorDoor + ElevatorDoorFrame (Door + Frame)- Elevator
-
-Slab1m ..A, B, BaseCube, BaseLine
-
------
-
 Train trigger?
 Elevator Trigger
-
 
 ----
 
@@ -33,22 +23,10 @@ TV
 Safer
 Temporary meshes?
 
-
-
 -----
 
 
-Change Controller UI font
-Add Controller UI Image to controller UI WBP
-
-Add City Hall Image to Main Menu
-
-Add Train Image to Controllers (?)
-
-
 *** Controller UI show on New Game?
-
-*** Saved Game UI WBP ?
 
 -----
 

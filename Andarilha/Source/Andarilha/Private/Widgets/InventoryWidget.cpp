@@ -11,7 +11,7 @@ void UInventoryWidget::NativePreConstruct()
 	Super::NativePreConstruct();
 
 	selectedColor = FLinearColor(0.7f, 0.f, 1.f, 1.f);
-	unselectedColor = FLinearColor(1.f, 1.f, 1.f, 0.f);
+	unselectedColor = FLinearColor(1.f, 1.f, 1.f, .66f);
 
 	//	TSharedRef<FNavigationConfig> Navigation = FSlateApplication::Get().GetNavigationConfig();
 	//	//TSharedRef<FNavigationConfig> Navigation = MakeShared<FNavigationConfig>();

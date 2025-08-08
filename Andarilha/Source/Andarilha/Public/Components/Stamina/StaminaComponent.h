@@ -4,6 +4,7 @@
 #include "Components/ActorComponent.h"
 #include "StaminaComponent.generated.h"
 
+class APCharacter;
 class UUserWidget;
 
 

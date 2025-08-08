@@ -1,8 +1,8 @@
+#include "Components/Stamina/StaminaComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "Characters/PCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Components/Stamina/StaminaComponent.h"
 
 UStaminaComponent::UStaminaComponent()
 {
