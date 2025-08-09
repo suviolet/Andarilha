@@ -54,7 +54,7 @@ void AMovableActorBase::BeginPlay()
 
 	if (!bIsTriggerable)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AMovableActorBase::BeginPlay IF"));
+		//UE_LOG(LogTemp, Warning, TEXT("AMovableActorBase::BeginPlay IF"));
 		TimelineMovingFinishedCallback.BindUFunction(this, "UnsetMovementBool");
 		TimelineMovementComp->SetTimelineFinishedFunc(TimelineMovingFinishedCallback);
 
@@ -63,7 +63,7 @@ void AMovableActorBase::BeginPlay()
 
 		if (SfxComponent->GetSound() != nullptr)
 		{
-			UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::BeginPlay SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
+			//UE_LOG(LogTemp, Log, TEXT("AMovableActorBase::BeginPlay SoundName: %s , Duration: %f"), *MovingSfx->GetName(), MovingSfx->GetDuration());
 			SfxComponent->Play(startTime);
 		}
 	}
@@ -75,7 +75,6 @@ void AMovableActorBase::Tick(float DeltaTime)
 
 	if (!bIsTriggerable && !bIsMoving)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AMovableActorBase::Tick IF:"));
 		bIsMoving = true;
 		if (bIsMovingForward)
 		{

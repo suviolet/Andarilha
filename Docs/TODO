@@ -7,6 +7,8 @@ TO DO - AUGUST
 + 
 - Level 1 - Section 1 - Train
 	--> Replace Elevator and Train
+	--> Replace spline mesh
+	--> Create train station
 
 - Level 1 - Section 2 - City Hall
 	--> Add randomness to the level
@@ -19,48 +21,33 @@ TO DO - AUGUST
 	--> Populate rooms following design - safe and key lock
 
 - Level 1 - Section 4 - Tosco Office
-	--> Add light between movable wall and wall button - portal ref
-	--> Get TR-ref gym level and include
-	--> Add door delay time - open/close ***
+	--> Add light between movable wall and wall button - portal ref - IN TEST
+	--> Add door delay time - open/close ***   X Done - IN TEST
 			TR reference
-	--> Improve TO BE CONTINUED level - Guardbot patrolling, Movable Platforms in place in loop
 
 - Level 1 - Section 5 - End (?)
 
+-----------------------------------------------------------------
+
+Fix UV issues
+Bake light? change wall meshes and lights to static
+
+Bleucollor and City Hall station name -> decal?
+Add Bleucollor station to the decal map
+
+
+Create rail before and after current rail
 -----------------------------------------------------------------
 --
 UI
 --
 
-** diagetic / non diagetic
-
-- Controller
-
-- Pause Menu
-	- Save
-	- Load
-	- Quit Game
-
-- Main Menu
-	- New Game
-	- Load Game
   - Credits - button
   	-- Team
   	-- Used Tools
   	-- External Assets
-  - Sandbox
 
-- Credits
-
-
------------------------------------------------------------------
-Backlog Urgent
-- Movable object such as wall and platform don't need to have doors. Change it on the code.* TO VALIDATE
-
-- Redo collision for
-	- SM_Walls_Office1_CorridorWall
-	- SM_Walls_Office1_CorridorWallWithDoor
-
+** diagetic / non diagetic
 
 -----------------------------------------------------------------
 --------------
@@ -98,9 +85,6 @@ Backlog Urgent
 
 -----------------------------------------------------------------
 
-- Enemy 
-	- Patrolling
-	- Attacking
 
 
 - OpenDoorEvent 
@@ -175,10 +159,7 @@ LoadErrors: Warning: CreateExport: Failed to load Outer for resource 'WrapBox': 
 
 
 ---- BACKLOG ---
-- Timeline?
-- VFX?
-- 
-
+- UI Fixed Resolution
 
 - Level Streaming / Orchestration (archiEnemy) - c++
 https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloading-levels-using-cplusplus-in-unreal-engine
@@ -196,6 +177,10 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/loading-and-unloadin
 - Quests
 	-- Main
 	-- Side
+
+- Enemy 
+	- Patrolling
+	- Attacking
 
 - PinPad
 

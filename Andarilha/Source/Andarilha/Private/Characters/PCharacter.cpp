@@ -190,17 +190,18 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 {
 	if (isAlive)
 	{
-		isRunning = Value.Get<bool>();
+		isRunning = bool(Value.Get<float>());
+
 		if (isRunning and bCanRun) {
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("isRunning"));
 			MovementComponent->MaxWalkSpeed = 600.0f;
-			//StaminaComponent->DecreaseStamina();
+			StaminaComponent->DecreaseStamina();
 		}
 		else
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("! isRunning"));
 			MovementComponent->MaxWalkSpeed = 300.0f;
-			//StaminaComponent->RecoverStamina();
+			StaminaComponent->RecoverStamina();
 		}
 	}
 }

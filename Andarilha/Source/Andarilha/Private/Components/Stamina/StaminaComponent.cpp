@@ -1,6 +1,7 @@
 #include "Components/Stamina/StaminaComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "Characters/PCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -10,7 +11,7 @@ UStaminaComponent::UStaminaComponent()
 
 	value = 100.f;
 
-	amountToDecrease = 3.f;
+	amountToDecrease = 9.f;
 	amountToRecover = 1.f;
 }
 
@@ -30,52 +31,67 @@ void UStaminaComponent::BeginPlay()
 
 void UStaminaComponent::DecreaseStamina()
 {
-	value -= amountToDecrease;
-	if (value <= 0)
+
+	if (PlayerCharacter->isRunning)
 	{
-		PlayerCharacter->bCanRun = false;
-		// stop decreasing / calling this func
-		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
+		value -= amountToDecrease;
+		if (value <= 0)
+		{
+			PlayerCharacter->bCanRun = false;
+			PlayerCharacter->isRunning = false;
+			PlayerCharacter->MovementComponent->MaxWalkSpeed = 300.f;
+			value = 0;
+
+			// stop decreasing / calling this func
+			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
+		}
+		else
+		{
+
+			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : value %f"), value);
+			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("UStaminaComponent::DecreaseStamina : value %f"), value));
+
+			//Retriggerable
+			FLatentActionInfo LatentAction;
+			LatentAction.Linkage = 0;
+			LatentAction.CallbackTarget = this;
+			LatentAction.UUID = GetUniqueID();
+			LatentAction.ExecutionFunction = "DecreaseStamina";
+			UKismetSystemLibrary::RetriggerableDelay(OwnerActor, .2f, LatentAction);
+
+		}
 	}
-	else
-	{
 
-		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : value %f"), value);
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("UStaminaComponent::DecreaseStamina : value %f"), value));
-
-		//Retriggerable
-		FLatentActionInfo LatentAction;
-		LatentAction.Linkage = 0;
-		LatentAction.CallbackTarget = this;
-		LatentAction.UUID = GetUniqueID();
-		LatentAction.ExecutionFunction = "DecreaseStamina";
-		UKismetSystemLibrary::RetriggerableDelay(OwnerActor, .2f, LatentAction);
-
-	}
 }
 
 void UStaminaComponent::RecoverStamina()
 {
-	value += amountToRecover;
-	if (value >= 100)
+	if (!PlayerCharacter->isRunning)
 	{
-		// stop increasing / calling this func
-		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
-	}
-	else
-	{
-		PlayerCharacter->bCanRun = true;
-		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : value %f"), value);
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("UStaminaComponent::RecoverStamina : value %f"), value));
+		value += amountToRecover;
+		if (value >= 100)
+		{
+			// stop increasing / calling this func
+			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
+		}
+		else
+		{
+			if(value > 75)
+			{
+				PlayerCharacter->bCanRun = true;
+			}
+			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : value %f"), value);
+			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("UStaminaComponent::RecoverStamina : value %f"), value));
 
-		//Retriggerable
-		FLatentActionInfo LatentAction;
-		LatentAction.Linkage = 0;
-		LatentAction.CallbackTarget = this;
-		LatentAction.UUID = GetUniqueID();
-		LatentAction.ExecutionFunction = "RecoverStamina";
-		UKismetSystemLibrary::RetriggerableDelay(OwnerActor, .2f, LatentAction);
+			//Retriggerable
+			FLatentActionInfo LatentAction;
+			LatentAction.Linkage = 0;
+			LatentAction.CallbackTarget = this;
+			LatentAction.UUID = GetUniqueID();
+			LatentAction.ExecutionFunction = "RecoverStamina";
+			UKismetSystemLibrary::RetriggerableDelay(OwnerActor, .2f, LatentAction);
+		}
 	}
 }

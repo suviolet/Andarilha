@@ -42,6 +42,8 @@ public:
 
 	UCapsuleComponent* Capsule;
 
+	UCharacterMovementComponent* MovementComponent;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory Component")
 	UInventoryComponent* InventoryComponent;
 
@@ -79,7 +81,6 @@ public:
 
 private:
 
-	UCharacterMovementComponent* MovementComponent;
 
 	APlayerController* PlayerController;
 
