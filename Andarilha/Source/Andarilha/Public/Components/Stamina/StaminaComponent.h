@@ -25,7 +25,11 @@ public:
 
 	UUserWidget* widget;
 
-	float value;
+	UPROPERTY(BlueprintReadOnly)
+	float stamina;
+
+	UPROPERTY(BlueprintReadOnly)
+	float maxStamina;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float amountToDecrease;
@@ -39,8 +43,13 @@ public:
 	UFUNCTION()
 	void RecoverStamina();
 
+	UFUNCTION()
+	void DisplayWidget(bool bCanDisplay);
+
 protected:
 	virtual void BeginPlay() override;
+
+	FTimerHandle TimerHandle;
 
 		
 };

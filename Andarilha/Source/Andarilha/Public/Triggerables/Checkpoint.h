@@ -22,6 +22,8 @@ public:
 
 	UWorld* currentWorld;
 
+	FTimerHandle TimerHandle;
+
 protected:
 	virtual void BeginPlay() override;
 

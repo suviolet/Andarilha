@@ -35,6 +35,9 @@ public:
 	UFUNCTION()
 	void RestartLastSave();
 
+	UFUNCTION()
+	void Run(const FInputActionValue& Value);
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "GameOverWidgetClass"))
 	TSubclassOf<UUserWidget> GameOverWidgetClass;
 
@@ -156,8 +159,8 @@ protected:
 	UFUNCTION()
 	void CustomCrouch(const FInputActionValue& Value);
 
-	UFUNCTION()
-	void Run(const FInputActionValue& Value);
+	//UFUNCTION()
+	//void Run(const FInputActionValue& Value);
 
 	UFUNCTION()
 	void JumpStart();

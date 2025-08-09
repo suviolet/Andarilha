@@ -31,17 +31,18 @@ void ACheckpoint::SaveGame(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 				bHasBeenTriggered = true;
 				savingWidget->AddToViewport();
 
-				if (PCharacter != nullptr)
-				//if (IsValid(PCharacter))
+				//if (PCharacter != nullptr)
+				if (IsValid(PCharacter))
 				{
 
-					if (currentWorld != nullptr)
-					//if (IsValid(currentWorld))
+					//if (currentWorld != nullptr)
+					if (IsValid(currentWorld))
 					{
 
 						UE_LOG(LogTemp, Warning, TEXT(" PCharacter->GetWorld  "));
 						PCharacter->SaveSystemComponent->Save();
-						FTimerHandle TimerHandle;
+
+						currentWorld->GetTimerManager().ClearTimer(TimerHandle);
 						currentWorld->GetTimerManager().SetTimer(TimerHandle, this, &ACheckpoint::AutoDestroy, 2.f);
 					}
 				}

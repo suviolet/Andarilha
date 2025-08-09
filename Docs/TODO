@@ -6,9 +6,7 @@ TO DO - AUGUST
 - GDD 
 + 
 - Level 1 - Section 1 - Train
-	--> Replace Elevator and Train
-	--> Replace spline mesh
-	--> Create train station
+	--> Replace Elevators
 
 - Level 1 - Section 2 - City Hall
 	--> Add randomness to the level
@@ -22,21 +20,33 @@ TO DO - AUGUST
 
 - Level 1 - Section 4 - Tosco Office
 	--> Add light between movable wall and wall button - portal ref - IN TEST
-	--> Add door delay time - open/close ***   X Done - IN TEST
-			TR reference
 
 - Level 1 - Section 5 - End (?)
 
+
+Check all - lights
+					- elevator (light + meshes + speed)
+					- check train speed
+					- fog - too bright
+
+decals
+			- Train station name - Bleucollor and City Hall
+			- Elevator is not working
+			- Add Bleucollor station to the decal map
+			- Add factory logo
+			- Add Tosco logo
+
+open/close door sound -> normal door
+
 -----------------------------------------------------------------
+
 
 Fix UV issues
 Bake light? change wall meshes and lights to static
 
-Bleucollor and City Hall station name -> decal?
-Add Bleucollor station to the decal map
-
 
 Create rail before and after current rail
+
 -----------------------------------------------------------------
 --
 UI

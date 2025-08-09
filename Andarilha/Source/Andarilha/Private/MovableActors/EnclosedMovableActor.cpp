@@ -95,6 +95,7 @@ void AEnclosedMovableActor::OnMovableTriggered()
 		bIsDoorOpen = false;
 
 		FTimerHandle TimerHandle;
+		//GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 		if (bIsMovingForward)
 		{
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AEnclosedMovableActor::OnMoveNextTriggered, delayTime);

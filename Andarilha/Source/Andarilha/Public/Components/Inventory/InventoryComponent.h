@@ -55,6 +55,9 @@ public:
 
 	void DropUI(const FInputActionValue& Value);
 
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void DisplayWidget(bool bCanDisplay);
+
 	UInventoryWidget* widget;
 
 	TArray<FItemStruct> Items;

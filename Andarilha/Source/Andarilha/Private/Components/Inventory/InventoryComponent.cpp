@@ -18,7 +18,7 @@ void UInventoryComponent::BeginPlay()
     if (InventoryWidgetClass != nullptr)
     {
         widget = CreateWidget<UInventoryWidget>(UGameplayStatics::GetPlayerController(this, 0), InventoryWidgetClass);
-        widget->AddToViewport(); // move to another logic, it is appearing on Main Menu, Pause Menu, etc..  !!!!!
+        //widget->AddToViewport(); // move to another logic, it is appearing on Main Menu, Pause Menu, etc..  !!!!!
     }
     OnInventoryChangeEvent.AddUObject(widget, &UInventoryWidget::LoadInventory);
 }
@@ -143,4 +143,16 @@ void UInventoryComponent::DropUI(const FInputActionValue& Value)
     }
 
     // Spawn on World dropped item
+}
+
+void UInventoryComponent::DisplayWidget(bool bCanDisplay)
+{
+    if (bCanDisplay)
+    {
+        widget->AddToViewport();
+    }
+    else
+    {
+        widget->RemoveFromViewport();
+    }
 }

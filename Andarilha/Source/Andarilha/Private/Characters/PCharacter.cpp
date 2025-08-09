@@ -195,6 +195,7 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 		if (isRunning and bCanRun) {
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("isRunning"));
 			MovementComponent->MaxWalkSpeed = 600.0f;
+			StaminaComponent->DisplayWidget(true);
 			StaminaComponent->DecreaseStamina();
 		}
 		else
@@ -321,8 +322,13 @@ void APCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		Input->BindAction(CrouchAction, ETriggerEvent::Started, this, &APCharacter::CustomCrouch);
 		Input->BindAction(CrouchAction, ETriggerEvent::Completed, this, &APCharacter::CustomCrouch);
 
-		Input->BindAction(RunAction, ETriggerEvent::Started, this, &APCharacter::Run);
-		Input->BindAction(RunAction, ETriggerEvent::Completed, this, &APCharacter::Run);
+		//Input->BindAction(RunAction, ETriggerEvent::Started, this, &APCharacter::Run);
+		//Input->BindAction(RunAction, ETriggerEvent::Completed, this, &APCharacter::Run);
+
+		Input->BindAction(RunAction, ETriggerEvent::Triggered, this, &APCharacter::Run);
+
+		//Input->BindAction("RunAction", IE_Pressed, this, &APCharacter::Run);
+		//Input->BindAction("RunAction", IE_Released, this, &APCharacter::Run);
 
 		Input->BindAction(StartAction, ETriggerEvent::Completed, this, &APCharacter::Start);
 
