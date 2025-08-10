@@ -5,11 +5,6 @@ Mesh + UBX
 Cable Emissive 
 Light Emissive
 
-TrainDoorLeft (remove in engine collider)
-TrainDoorRight (remove in engine collider)
-Elevator
-ElevatorDoorLeft (remove in engine collider)
-ElevatorDoorRight (remove in engine collider)
 
 -----
 
@@ -18,8 +13,6 @@ Elevator Trigger
 
 ----
 
-Monitor
-TV
 Safer
 Temporary meshes?
 

@@ -31,12 +31,12 @@ void ACheckpoint::SaveGame(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 				bHasBeenTriggered = true;
 				savingWidget->AddToViewport();
 
-				//if (PCharacter != nullptr)
-				if (IsValid(PCharacter))
+				//if (IsValid(PCharacter))
+				if (PCharacter != nullptr)
 				{
 
-					//if (currentWorld != nullptr)
-					if (IsValid(currentWorld))
+					//if (IsValid(currentWorld))
+					if (currentWorld != nullptr)
 					{
 
 						UE_LOG(LogTemp, Warning, TEXT(" PCharacter->GetWorld  "));

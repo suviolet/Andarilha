@@ -195,7 +195,10 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 		if (isRunning and bCanRun) {
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("isRunning"));
 			MovementComponent->MaxWalkSpeed = 600.0f;
-			StaminaComponent->DisplayWidget(true);
+			if (StaminaComponent->widget != nullptr)
+			{
+				StaminaComponent->DisplayWidget(true);
+			}
 			StaminaComponent->DecreaseStamina();
 		}
 		else

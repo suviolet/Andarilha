@@ -37,7 +37,6 @@ void UStaminaComponent::DecreaseStamina()
 		stamina -= amountToDecrease;
 		stamina = FMath::Max(stamina, 0);
 		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stamina %f"), stamina);
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("UStaminaComponent::DecreaseStamina : stamina %f"), stamina));
 
 		if (stamina <= 0)
 		{
@@ -46,13 +45,11 @@ void UStaminaComponent::DecreaseStamina()
 
 			// stop decreasing / calling this func
 			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
 		}
 		else
 		{
 			GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &UStaminaComponent::DecreaseStamina, .2f);
-
 		}
 	}
 }
@@ -64,13 +61,11 @@ void UStaminaComponent::RecoverStamina()
 		stamina += amountToRecover;
 		stamina = FMath::Min(stamina, maxStamina);
 		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stamina %f"), stamina);
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("UStaminaComponent::RecoverStamina : stamina %f"), stamina));
 
 		if (stamina >= maxStamina)
 		{
 			// stop increasing / calling this func
 			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
 			DisplayWidget(false);
 		}
 		else
@@ -79,10 +74,8 @@ void UStaminaComponent::RecoverStamina()
 			{
 				PlayerCharacter->bCanRun = true;
 			}
-
 			GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 			GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &UStaminaComponent::RecoverStamina, .2f);
-
 		}
 	}
 }

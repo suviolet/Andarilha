@@ -5,14 +5,10 @@ TO DO - AUGUST
 -----------------------------------------------------------------
 - GDD 
 + 
-- Level 1 - Section 1 - Train
-	--> Replace Elevators
 
 - Level 1 - Section 2 - City Hall
-	--> Add randomness to the level
 	--> Populate Library
 	--> Populate Coffee Shop
-	--> Replace Elevator
 
 - Level 1 - Section 3 - Mayor's Office
 	--> Add randomness to the level
@@ -37,6 +33,9 @@ decals
 			- Add Tosco logo
 
 open/close door sound -> normal door
+
+mesh 
+	Garbage / Recycle / Compostable
 
 -----------------------------------------------------------------
 
@@ -76,16 +75,7 @@ UI
 		--- BillBoard
 	-- Eye
 
-- Stamina System
--- UI elements - TBD
--- Run consume and when not running recharge %/s - TBD
--- Consume collectables to manipulate stamina values - TBD
 
-- Importing and executing SFXs on respective owners and moments
-	- SFX (X Xth)
-		-- GuardBot Chasing
-		-- GuardBot Shooting Laser
-	  -- Footsteps adjust/handle randomness + volume https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
 
 - Lights Kill Player - Trap
 -- delay between to activate/deactivate mesh(no collision) and modify trigger.
@@ -96,15 +86,15 @@ UI
 -----------------------------------------------------------------
 
 
-
 - OpenDoorEvent 
 	-- Safer
+
 
 --------------
 ---- JUICY ---
 --------------
 
-- Work on presentation, August 7th
+- Work on presentation, August 10th
 - Presentation Pitch, August 11th
 
 
@@ -215,8 +205,16 @@ GDC
 https://www.youtube.com/watch?v=gdBACyIOCtc
 
 
-
+- Stamina System
+-- Consume collectables to manipulate stamina values - TBD
 
 
 
 https://dev.epicgames.com/documentation/en-us/unreal-engine/fbx-static-mesh-pipeline-in-unreal-engine
+
+
+- Importing and executing SFXs on respective owners and moments
+	- SFX (X Xth)
+		-- GuardBot Chasing
+		-- GuardBot Shooting Laser
+	  -- Footsteps adjust/handle randomness + volume https://www.reddit.com/r/unrealengine/comments/57hq6x/help_animation_play_sound_notify_issue/
