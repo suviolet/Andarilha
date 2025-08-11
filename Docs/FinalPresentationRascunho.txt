@@ -1,0 +1,90 @@
+Final Presentation Template
+
+(Max 5 minutes):
+
+1. The Problem & Vision
+	- What was the initial problem you wanted to solve? 
+		Create a dystopian Third Person Adventure game where Data is the new Oil
+
+	- What did you want to make?
+		- Non-linear game
+		- Open hub with at least 7 hubs
+		- Eye companion / inventory
+		- Coin system
+		- Collectables that changes player stamina stats
+		- Guardbot enemy
+		- Other buildings to decor the environment + to be acessed
+
+
+	- Why did you want to make it?
+		- I'm passionate about dystopian and when I started to do the capstone I was playing Tomb Raider 1-3 remastered, so we wanted to combine both worlds and have fun while doing a dystopian Sci-fi world.
+
+
+	- What did you think you would make?
+		- I tought we would make
+			- a non-linear open hub with different areas where the player could access and grab differents quests/deliveries in their own pace and flow
+			- Climbing mechanic
+			- Create different buildings for each hub, some of them having Brazilian and Saudi Arabia references.
+			- 
+
+
+2.  Solution & Demo
+	- What did you end up with?
+		- We ended up with
+			- a linear game
+			- One level with 5 sections
+			- Basic inventory
+			- Basic climbing mechanic 
+
+
+	- Show some footage or images
+		***WIP***
+
+
+3. Reflection
+	- What changed along the way?
+		We had to remove some aspects of the game, such as:
+			- change from non-linear to linear
+			- reduce level scope to only one
+			- 
+
+	- What were the biggest challenges? 
+		BUGS everywhere
+		Escope and Time management - Don't be afraid to change plans, embrace changes and abstractness.
+		Improve knowledge on C++ and Unreal - Pomodore + Docs
+
+
+	- What would you do differently?
+		- Use Blender to do level blockout - Understand my Work Process and how I can deliver it faster
+
+4. Future Plans
+	- What do you plan to do with this project after?
+		We plan to continue evolving this project and try to get fundings for it
+
+	- How do you plan to use this as a jumping off point in your career?
+		This whole project is going to be used as pieces for my Environment Art and Level Design portfolio
+		With that, I want to work for a game studio and at the same time do some Freelancer jobs
+
+
+
+
+------
+
+1. The Problem & Vision
+	- What was the initial problem you wanted to solve? 
+	- What did you want to make?
+	- Why did you want to make it?
+	- What did you think you would make?
+
+2.  Solution & Demo
+	- What did you end up with?
+	- Show some footage or images
+
+3. Reflection
+	- What changed along the way?
+	- What were the biggest challenges? 
+	- What would you do differently?
+
+4. Future Plans
+	- What do you plan to do with this project after?
+	- How do you plan to use this as a jumping off point in your career?
