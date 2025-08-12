@@ -23,6 +23,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "InventoryWidgetClass"))
 	TSubclassOf<UInventoryWidget> InventoryWidgetClass;
 
+	UInventoryWidget* widget;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "MaxSlotSize")) // SaveGame property
 	int32 MaxSlotSize;
 
@@ -57,8 +59,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void DisplayWidget(bool bCanDisplay);
-
-	UInventoryWidget* widget;
 
 	TArray<FItemStruct> Items;
 

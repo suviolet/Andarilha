@@ -5,8 +5,7 @@
 #include "StaminaComponent.generated.h"
 
 class APCharacter;
-class UUserWidget;
-
+class UStaminaWidget;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ANDARILHA_API UStaminaComponent : public UActorComponent
@@ -21,9 +20,9 @@ public:
 	APCharacter* PlayerCharacter;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "StaminaWidgetClass"))
-	TSubclassOf<UUserWidget> StaminaWidgetClass;
+	TSubclassOf<UStaminaWidget> StaminaWidgetClass;
 
-	UUserWidget* widget;
+	UStaminaWidget* widget;
 
 	UPROPERTY(BlueprintReadOnly)
 	float stamina;

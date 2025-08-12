@@ -193,7 +193,7 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 		isRunning = bool(Value.Get<float>());
 
 		if (isRunning and bCanRun) {
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("isRunning"));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("isRunning"));
 			MovementComponent->MaxWalkSpeed = 600.0f;
 			if (StaminaComponent->widget != nullptr)
 			{
@@ -203,7 +203,7 @@ void APCharacter::Run(const FInputActionValue& Value) //sprint
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("! isRunning"));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("! isRunning"));
 			MovementComponent->MaxWalkSpeed = 300.0f;
 			StaminaComponent->RecoverStamina();
 		}

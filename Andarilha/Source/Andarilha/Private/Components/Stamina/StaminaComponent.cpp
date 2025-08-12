@@ -1,5 +1,5 @@
 #include "Components/Stamina/StaminaComponent.h"
-#include "Blueprint/UserWidget.h"
+#include "Widgets/StaminaWidget.h"
 #include "Characters/PCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -19,13 +19,12 @@ UStaminaComponent::UStaminaComponent()
 void UStaminaComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 	OwnerActor = GetOwner();
 	PlayerCharacter = Cast<APCharacter>(OwnerActor);
 
 	if (StaminaWidgetClass != nullptr)
 	{
-		widget = CreateWidget<UUserWidget>(UGameplayStatics::GetPlayerController(this, 0), StaminaWidgetClass);
+		widget = CreateWidget<UStaminaWidget>(UGameplayStatics::GetPlayerController(this, 0), StaminaWidgetClass);
 	}
 }
 
@@ -36,7 +35,8 @@ void UStaminaComponent::DecreaseStamina()
 	{
 		stamina -= amountToDecrease;
 		stamina = FMath::Max(stamina, 0);
-		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stamina %f"), stamina);
+		widget->UpdateStaminaBar(stamina / maxStamina);
+		//UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stamina %f"), stamina);
 
 		if (stamina <= 0)
 		{
@@ -44,7 +44,7 @@ void UStaminaComponent::DecreaseStamina()
 			PlayerCharacter->Run(FInputActionValue(false));
 
 			// stop decreasing / calling this func
-			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
+			//UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::DecreaseStamina : stop decreasing / calling this func"));
 		}
 		else
 		{
@@ -60,12 +60,13 @@ void UStaminaComponent::RecoverStamina()
 	{
 		stamina += amountToRecover;
 		stamina = FMath::Min(stamina, maxStamina);
-		UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stamina %f"), stamina);
+		widget->UpdateStaminaBar(stamina / maxStamina);
+		//UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stamina %f"), stamina);
 
 		if (stamina >= maxStamina)
 		{
 			// stop increasing / calling this func
-			UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
+			//UE_LOG(LogTemp, Warning, TEXT("UStaminaComponent::RecoverStamina : stop increasing / calling this func"));
 			DisplayWidget(false);
 		}
 		else
@@ -88,6 +89,6 @@ void UStaminaComponent::DisplayWidget(bool bCanDisplay)
 	}
 	else
 	{
-		widget->RemoveFromViewport();
+		widget->RemoveFromParent();
 	}
 }

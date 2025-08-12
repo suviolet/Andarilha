@@ -18,7 +18,6 @@ void UInventoryComponent::BeginPlay()
     if (InventoryWidgetClass != nullptr)
     {
         widget = CreateWidget<UInventoryWidget>(UGameplayStatics::GetPlayerController(this, 0), InventoryWidgetClass);
-        //widget->AddToViewport(); // move to another logic, it is appearing on Main Menu, Pause Menu, etc..  !!!!!
     }
     OnInventoryChangeEvent.AddUObject(widget, &UInventoryWidget::LoadInventory);
 }
@@ -153,6 +152,6 @@ void UInventoryComponent::DisplayWidget(bool bCanDisplay)
     }
     else
     {
-        widget->RemoveFromViewport();
+        widget->RemoveFromParent();
     }
 }
