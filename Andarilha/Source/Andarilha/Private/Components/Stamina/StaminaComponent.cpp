@@ -85,6 +85,7 @@ void UStaminaComponent::DisplayWidget(bool bCanDisplay)
 {
 	if (bCanDisplay)
 	{
+		if (widget->IsInViewport()) return;
 		widget->AddToViewport();
 	}
 	else

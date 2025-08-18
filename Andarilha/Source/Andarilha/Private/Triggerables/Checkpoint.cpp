@@ -16,6 +16,7 @@ void ACheckpoint::BeginPlay()
 
 	if (IsValid(SaveWidgetClass))
 	{
+		// Assertion failed: !IsUnreachable() [File:D:\build\++UE5\Sync\Engine\Source\Runtime\CoreUObject\Private\UObject\ScriptCore.cpp] [Line: 1976] WBP_Saving_C /Engine/Transient.UnrealEdEngine_0:GameInstance_2.None Function: '/Script/UMG.UserWidget:PreConstruct'
 		savingWidget = CreateWidget<UUserWidget>(UGameplayStatics::GetPlayerController(this, 0), SaveWidgetClass);
 	}
 }
@@ -26,9 +27,10 @@ void ACheckpoint::SaveGame(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 	{
 		if (APCharacter* PCharacter = Cast<APCharacter>(OtherActor))
 		{
-			if (!bHasBeenTriggered && IsValid(savingWidget))
+			if (!bHasBeenTriggered && savingWidget != nullptr)
 			{
 				bHasBeenTriggered = true;
+				if (savingWidget->IsInViewport()) return;
 				savingWidget->AddToViewport();
 
 				//if (IsValid(PCharacter))
@@ -36,7 +38,7 @@ void ACheckpoint::SaveGame(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 				{
 
 					//if (IsValid(currentWorld))
-					if (currentWorld != nullptr)
+					if (currentWorld != nullptr)   // <----
 					{
 
 						UE_LOG(LogTemp, Warning, TEXT(" PCharacter->GetWorld  "));
